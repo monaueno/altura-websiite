@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Geologica - Display/Headlines */
+@font-face {
+  font-family: 'Geologica';
+  src: url('/assets/Fonts/Geologica/Geologica-VariableFont_CRSV,SHRP,slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/* Afacad - Body Text */
+@font-face {
+  font-family: 'Afacad';
+  src: url('/assets/Fonts/Afacad,Afacad_Flux 2/Afacad/Afacad-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Afacad';
+  src: url('/assets/Fonts/Afacad,Afacad_Flux 2/Afacad/Afacad-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+:root {
+  --color-cream: #F5EFE6;
+  --color-dark: #0D0D0D;
+  --color-accent: #C17A3C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Afacad', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Geologica', serif;
+}
