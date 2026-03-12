@@ -2,15 +2,15 @@ const STORAGE_KEY = 'annalise_site_data';
 
 const defaultData = {
   home: {
-    heroHeadline: "Where Strategy Meets Creative That Converts",
-    heroSubheadline: "Altura Marketing is a growth-focused marketing studio specializing in paid advertising and organic social strategy. We help brands turn attention into measurable results through intentional creative and data-driven execution.",
+    heroHeadline: "Taking your business to new heights",
+    heroSubheadline: "Altura Marketing is a growth-focused marketing studio specializing in paid advertising and brand design. We help brands turn attention into measurable results through intentional creative and data-driven execution.",
     heroCTAText: "Let's Chat",
     heroImage: "/assets/Images/Branding Photoshoot/walking-home-page.jpg",
     uspHeadline: "It's about understanding people... not just platforms.",
-    uspBody: "I focus on uncovering what your audience actually cares about, then shaping creative and messaging that feels natural, emotional, and aligned with how they think and buy. When strategy leads, performance follows.",
+    uspBody: "We focus on uncovering what your audience actually cares about, then shaping creative and messaging that feels natural, emotional, and aligned with how they think and buy. When strategy leads, performance follows.",
     uspImage: "/assets/images/computer.jpg", // Placeholder - to be uploaded later
     staticShowcaseHeadline: "See the Creative Strategy Come to Life",
-    staticShowcaseSubheading: "These static ads are real examples of how insight, intention, and execution come together. Each piece is designed to speak to a specific audience, highlight what matters most, and make the message feel natural, not forced.",
+    staticShowcaseSubheading: "These ads are real examples of how insight, intention, and execution come together. Each piece is designed to speak to a specific audience, highlight what matters most, and make the message feel natural, not forced.",
     videoShowcaseHeadline: "",
     videoShowcaseSubheading: "Sometimes the UGC comes back less than ideal. Sometimes all you have are still images from a recent shoot. This portfolio highlights how creative strategy and thoughtful editing can transform what you have into video ads that actually work."
   },
