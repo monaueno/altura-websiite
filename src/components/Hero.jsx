@@ -12,40 +12,44 @@ function Hero() {
   if (!data) return null;
 
   return (
-    <section className="relative min-h-screen bg-dark flex items-center pt-20">
-      {/* Background Image */}
-      <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={data.heroImage}
-          alt="Hero"
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
+    <section className="relative h-screen min-h-[640px] flex items-end px-12 pb-20 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-near-black overflow-hidden">
+        {data.heroImage ? (
+          <img
+            src={data.heroImage}
+            alt="Hero background"
+            className="w-full h-full object-cover opacity-[0.55]"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] via-[#2d2d2d] to-[#1a1208] flex items-center justify-center">
+            <span className="text-white/10 text-[0.8rem] tracking-[0.2em] uppercase">
+              Hero background image
+            </span>
+          </div>
+        )}
       </div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        <div className="max-w-3xl">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-geologica font-bold text-cream mb-8 leading-tight">
-            {data.heroHeadline}
-          </h1>
-          <p className="text-xl md:text-2xl text-cream/90 font-afacad mb-10 leading-relaxed">
-            {data.heroSubheadline}
-          </p>
-          <a
-            href="#contact"
-            className="inline-block bg-accent text-dark px-8 py-4 rounded-full text-lg font-afacad font-semibold hover:bg-accent/90 transition-all hover:scale-105"
-          >
-            {data.heroCTAText}
-          </a>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-cream/50 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-cream/50 rounded-full"></div>
-        </div>
+      <div className="relative z-10 max-w-[600px]">
+        <p className="text-[0.75rem] tracking-[0.25em] uppercase text-accent font-medium mb-4">
+          Creative Strategy · Brand Marketing
+        </p>
+        <h1 className="font-display text-[clamp(2.8rem,5vw,4.5rem)] font-black text-white leading-[1.05] tracking-[-0.01em] mb-5">
+          {data.heroHeadline}
+        </h1>
+        <p className="text-base text-white/75 leading-[1.7] max-w-[420px] mb-9 font-light">
+          {data.heroSubheadline}
+        </p>
+        <a
+          href="#contact"
+          className="inline-block px-8 py-[14px] bg-accent text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-accent-light hover:-translate-y-[1px]"
+        >
+          {data.heroCTAText}
+        </a>
       </div>
     </section>
   );

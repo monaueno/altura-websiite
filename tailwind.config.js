@@ -8,12 +8,16 @@ export default {
     extend: {
       colors: {
         cream: '#F5EFE6',
-        dark: '#0D0D0D',
-        accent: '#C17A3C', // warm terracotta
+        'cream-dark': '#EDE4D6',
+        'near-black': '#141414',
+        'dark-gray': '#1E1E1E',
+        'mid-gray': '#3A3A3A',
+        accent: '#C8A97E',
+        'accent-light': '#E8D5B7',
       },
       fontFamily: {
-        geologica: ['Geologica', 'serif'],
-        afacad: ['Afacad', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
       },
     },
   },

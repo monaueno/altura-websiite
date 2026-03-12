@@ -91,23 +91,26 @@ const defaultData = {
   testimonials: [
     {
       id: "1",
-      name: "Sarah Johnson",
-      titleCompany: "Marketing Director, Brand Co.",
-      quote: "Working with Annalise transformed how we approach creative strategy. Her insights helped us increase our ROAS by 200% while actually reducing our ad spend.",
+      name: "Alexis Miles",
+      titleCompany: "Dir. of Content, BoostedSafe",
+      company: "BoostedSafe",
+      quote: "Annalise came to every meeting prepared, knowledgeable about what she was doing and the clients she was serving. Her strategy and recommendations resonated because she truly understood the numbers and how they connected to our brand goals.",
       avatar: ""
     },
     {
       id: "2",
-      name: "Michael Chen",
-      titleCompany: "Founder, Growth Startup",
-      quote: "Annalise doesn't just create beautiful ads—she thinks deeply about why they work and how they connect with real people. Game changer for our brand.",
+      name: "Jamie Rooks",
+      titleCompany: "Founder, Soji",
+      company: "Soji",
+      quote: "One of our lowest months on record, we saw 90% month-over-month growth throughout the second half of 2025, and that momentum has continued into the first months of 2026. Annalise has been a key driver of our growth, and I cannot recommend her or Annalise highly enough.",
       avatar: ""
     },
     {
       id: "3",
-      name: "Emily Rodriguez",
-      titleCompany: "CEO, E-commerce Brand",
-      quote: "Finally, someone who gets that creative and strategy aren't separate disciplines. Annalise bridges that gap effortlessly.",
+      name: "Dylan Baird",
+      titleCompany: "Co-Founder, BoostedSafe",
+      company: "BoostedSafe",
+      quote: "Annalise is incredibly hardworking, creative, and personally committed to helping her clients succeed. She takes the time to understand your needs and consistently looks for ways to help them grow and improve. Her dedication, attention to detail, and passion for what she does really set her apart.",
       avatar: ""
     }
   ]
