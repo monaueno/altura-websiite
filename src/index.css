@@ -1,8 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Custom Fonts */
+@font-face {
+  font-family: 'Afacad';
+  src: url('/assets/Fonts/Afacad,Afacad_Flux 2/Afacad/static/Afacad-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
 
-/* Geologica - Display/Headlines */
 @font-face {
   font-family: 'Geologica';
   src: url('/assets/Fonts/Geologica/Geologica-VariableFont_CRSV,SHRP,slnt,wght.ttf') format('truetype');
@@ -10,39 +13,67 @@
   font-style: normal;
 }
 
-/* Afacad - Body Text */
-@font-face {
-  font-family: 'Afacad';
-  src: url('/assets/Fonts/Afacad,Afacad_Flux 2/Afacad/Afacad-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 
-@font-face {
-  font-family: 'Afacad';
-  src: url('/assets/Fonts/Afacad,Afacad_Flux 2/Afacad/Afacad-Italic-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --color-cream: #F5EFE6;
-  --color-dark: #0D0D0D;
-  --color-accent: #C17A3C;
+  --cream: #F5EFE6;
+  --cream-dark: #EDE4D6;
+  --near-black: #141414;
+  --dark-gray: #1E1E1E;
+  --mid-gray: #3A3A3A;
+  --accent: #C8A97E;
+  --accent-light: #E8D5B7;
+  --white: #FFFFFF;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--near-black);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
 }
 
-body {
-  font-family: 'Afacad', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Scroll animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Geologica', serif;
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

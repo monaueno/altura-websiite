@@ -1,80 +1,74 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getData } from '../utils/storage';
 
 function ServicesPreview() {
   const [services, setServices] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
     const siteData = getData();
-    setServices(siteData.services);
+    setServices(siteData.services.slice(0, 4)); // Only show first 4 services
   }, []);
 
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <section className="bg-cream py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="max-w-4xl mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-geologica font-bold text-dark mb-6 leading-tight">
-            Services
-          </h2>
-          <p className="text-xl text-dark/80 font-afacad leading-relaxed">
-            Altura Marketing offers strategic marketing support for brands that want clarity, stronger creative, and measurable growth.
-          </p>
-        </div>
+    <section className="px-12 py-24 bg-cream-dark grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
+      {/* Left Side - Text */}
+      <div>
+        <p className="text-[0.72rem] tracking-[0.25em] uppercase text-accent font-medium mb-5">
+          What We Offer
+        </p>
+        <h2 className="font-display text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold text-near-black leading-[1.25] mb-5">
+          Strategic Marketing Support for Growing Brands
+        </h2>
+        <p className="text-mid-gray text-[0.95rem] leading-[1.75] max-w-[380px] mb-9 font-light">
+          Annalise Marketing offers strategic marketing support for brands that want clarity, stronger creative, and measurable growth.
+        </p>
+        <a
+          href="#contact"
+          className="inline-block px-8 py-[14px] bg-accent text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-accent-light hover:-translate-y-[1px]"
+        >
+          Hire Us
+        </a>
+      </div>
 
-        {/* Services Grid */}
-        <div className="space-y-16">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="group cursor-pointer"
+      {/* Right Side - Accordion */}
+      <div>
+        {services.map((service, index) => (
+          <div key={service.id} className="border-b border-near-black/15">
+            <button
+              onClick={() => toggleAccordion(index)}
+              className="w-full flex items-center justify-between py-5 bg-transparent border-none cursor-pointer font-body text-[0.85rem] font-semibold tracking-[0.08em] uppercase text-near-black text-left transition-colors hover:text-accent"
             >
-              <div className="flex gap-8">
-                {/* Number */}
-                <div className="flex-shrink-0">
-                  <span className="text-5xl md:text-6xl font-geologica font-bold text-accent/30 group-hover:text-accent transition-colors">
-                    {service.number}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="text-2xl md:text-3xl font-geologica font-bold text-dark mb-4 group-hover:text-accent transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-lg text-dark/70 font-afacad leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center text-dark font-afacad font-semibold hover:text-accent transition-colors group"
-                  >
-                    Learn More
-                    <svg
-                      className="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Divider */}
-              {service.id !== services[services.length - 1].id && (
-                <div className="mt-16 h-px bg-dark/10"></div>
-              )}
+              <span>{service.title}</span>
+              <span
+                className={`text-[0.65rem] opacity-50 transition-transform duration-300 ${
+                  openIndex === index ? 'rotate-90' : ''
+                }`}
+              >
+                ▶
+              </span>
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-[350ms] ${
+                openIndex === index ? 'max-h-[200px] pb-5' : 'max-h-0'
+              }`}
+            >
+              <p className="text-[0.9rem] text-mid-gray leading-[1.7] font-light">
+                {service.description}
+              </p>
+              <a
+                href="/services"
+                className="inline-block mt-3 text-[0.75rem] tracking-[0.12em] uppercase font-semibold text-near-black border-b border-current pb-[1px] transition-colors hover:text-accent"
+              >
+                Learn More
+              </a>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

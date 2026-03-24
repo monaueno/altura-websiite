@@ -8,88 +8,79 @@ function Testimonials() {
   useEffect(() => {
     const siteData = getData();
     setTestimonials(siteData.testimonials);
-
-    // Auto-scroll every 5 seconds
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % siteData.testimonials.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
+  const handlePrev = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
   };
 
   if (testimonials.length === 0) return null;
 
+  const currentTestimonial = testimonials[currentIndex];
+
   return (
-    <section className="bg-dark py-24 md:py-32">
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Header */}
-        <h2 className="text-4xl md:text-5xl font-geologica font-bold text-cream mb-16 text-center">
+    <section className="bg-near-black px-12 py-24 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      {/* Left Side - Text */}
+      <div>
+        <p className="text-[0.72rem] tracking-[0.25em] uppercase text-accent mb-6 font-medium">
           What Clients Say
+        </p>
+        <h2 className="font-display text-[clamp(1.8rem,3vw,2.8rem)] text-white font-bold leading-[1.2] mb-5">
+          It's About Understanding <em className="text-accent italic">People</em>…Not Just Platforms.
         </h2>
+        <p className="text-white/60 text-[0.95rem] leading-[1.75] font-light max-w-[380px]">
+          We focus on uncovering what your audience actually cares about, then shaping creative and messaging that feels natural, emotional, and aligned with how they think and buy. When strategy leads, performance follows.
+        </p>
+      </div>
 
-        {/* Carousel */}
-        <div className="relative">
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="min-w-full flex flex-col items-center text-center px-4"
-                >
-                  {/* Avatar */}
-                  {testimonial.avatar ? (
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-20 h-20 rounded-full object-cover mb-8"
-                    />
-                  ) : (
-                    <div className="w-20 h-20 rounded-full bg-accent/20 flex items-center justify-center mb-8">
-                      <span className="text-2xl font-geologica text-accent">
-                        {testimonial.name.charAt(0)}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Quote */}
-                  <blockquote className="text-2xl md:text-3xl font-afacad text-cream/90 mb-8 leading-relaxed italic max-w-3xl">
-                    "{testimonial.quote}"
-                  </blockquote>
-
-                  {/* Name & Title */}
-                  <p className="text-cream font-afacad font-semibold text-lg">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-cream/60 font-afacad">
-                    {testimonial.titleCompany}
-                  </p>
-                </div>
-              ))}
-            </div>
+      {/* Right Side - Testimonial Card */}
+      <div className="relative">
+        <div className="bg-white p-9 rounded">
+          {/* Company Logo/Name */}
+          <div className="text-[0.75rem] tracking-[0.2em] uppercase font-bold text-mid-gray mb-5">
+            {currentTestimonial.company}
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-3 mt-12">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === currentIndex
-                    ? 'bg-accent w-8'
-                    : 'bg-cream/30 hover:bg-cream/50'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
+          {/* Quote */}
+          <p className="text-[0.95rem] leading-[1.75] text-mid-gray mb-7 italic">
+            "{currentTestimonial.quote}"
+          </p>
+
+          {/* Author */}
+          <div className="flex flex-col gap-[2px]">
+            <span className="font-display text-[1.1rem] font-bold text-near-black">
+              {currentTestimonial.name}
+            </span>
+            <span className="text-[0.75rem] tracking-[0.1em] uppercase text-black/45 font-medium">
+              {currentTestimonial.titleCompany}
+            </span>
           </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex gap-3 mt-6 justify-end">
+          <button
+            onClick={handlePrev}
+            className="w-10 h-10 border-[1.5px] border-white/30 bg-transparent text-white rounded-full cursor-pointer text-base flex items-center justify-center transition-all hover:border-accent hover:bg-accent hover:text-near-black"
+            aria-label="Previous testimonial"
+          >
+            ←
+          </button>
+          <button
+            onClick={handleNext}
+            className="w-10 h-10 border-[1.5px] border-white/30 bg-transparent text-white rounded-full cursor-pointer text-base flex items-center justify-center transition-all hover:border-accent hover:bg-accent hover:text-near-black"
+            aria-label="Next testimonial"
+          >
+            →
+          </button>
         </div>
       </div>
     </section>

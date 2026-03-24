@@ -2,78 +2,110 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="bg-dark py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Logo & Copyright */}
-          <div>
-            <Link to="/" className="text-3xl font-geologica font-bold text-cream hover:text-accent transition-colors inline-block mb-6">
-              Annalise
-            </Link>
-            <p className="text-cream/60 font-afacad text-sm">
-              © 2025 Annalise. All rights reserved.
-            </p>
+    <footer className="bg-near-black px-12 py-14">
+      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-12 items-center">
+        {/* Logo */}
+        <div>
+          <div className="font-display text-[1.3rem] font-bold text-white tracking-[0.04em]">
+            Annalise
           </div>
+          <span className="block font-body text-[0.65rem] tracking-[0.2em] uppercase text-accent font-medium mt-[3px]">
+            Marketing Strategist
+          </span>
+        </div>
 
-          {/* Navigation Links */}
+        {/* Middle Links */}
+        <div className="flex gap-12 justify-center">
+          {/* Connect */}
           <div>
-            <h3 className="text-cream font-geologica font-semibold text-lg mb-4">
-              Navigation
-            </h3>
-            <nav className="flex flex-col gap-3">
-              <Link to="/services" className="text-cream/70 hover:text-accent transition-colors font-afacad">
-                Services
-              </Link>
-              <Link to="/portfolio" className="text-cream/70 hover:text-accent transition-colors font-afacad">
-                Portfolio
-              </Link>
-              <Link to="/about" className="text-cream/70 hover:text-accent transition-colors font-afacad">
-                About Me
-              </Link>
-              <Link to="/blog" className="text-cream/70 hover:text-accent transition-colors font-afacad">
-                Blog
-              </Link>
-            </nav>
-          </div>
-
-          {/* Social Media */}
-          <div>
-            <h3 className="text-cream font-geologica font-semibold text-lg mb-4">
+            <h4 className="text-[0.65rem] tracking-[0.2em] uppercase text-accent font-semibold mb-3">
               Connect
-            </h3>
-            <div className="flex gap-4">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-cream/10 hover:bg-accent transition-colors flex items-center justify-center text-cream"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-cream/10 hover:bg-accent transition-colors flex items-center justify-center text-cream"
-                aria-label="Instagram"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </a>
-            </div>
+            </h4>
+            <a
+              href="mailto:hello@annalisemarketing.co"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              hello@annaliseemarketing.co
+            </a>
+          </div>
+
+          {/* Socials */}
+          <div>
+            <h4 className="text-[0.65rem] tracking-[0.2em] uppercase text-accent font-semibold mb-3">
+              Socials
+            </h4>
+            <a
+              href="#"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              Instagram
+            </a>
+            <a
+              href="#"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              TikTok
+            </a>
+            <a
+              href="#"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              LinkedIn
+            </a>
+          </div>
+
+          {/* Pages */}
+          <div>
+            <h4 className="text-[0.65rem] tracking-[0.2em] uppercase text-accent font-semibold mb-3">
+              Pages
+            </h4>
+            <Link
+              to="/"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              Home
+            </Link>
+            <Link
+              to="/portfolio"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              Portfolio
+            </Link>
+            <Link
+              to="/services"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              Services
+            </Link>
+            <Link
+              to="/blog"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              Blog
+            </Link>
+            <Link
+              to="/about"
+              className="block text-[0.85rem] text-white/60 transition-colors hover:text-white leading-[1.9]"
+            >
+              About Me
+            </Link>
           </div>
         </div>
 
-        {/* Bottom Border */}
-        <div className="pt-8 border-t border-cream/10">
-          <p className="text-center text-cream/50 font-afacad text-sm">
-            Crafted with strategy and intention.
-          </p>
+        {/* Right CTA */}
+        <div className="text-right">
+          <a
+            href="#contact"
+            className="inline-block px-8 py-[14px] bg-accent text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-accent-light hover:-translate-y-[1px]"
+          >
+            Hire Us
+          </a>
         </div>
+
+        {/* Copyright */}
+        <p className="col-span-full mt-10 pt-6 border-t border-white/[0.08] text-[0.75rem] text-white/30 text-center tracking-[0.05em]">
+          © 2025 Annalise Marketing. All rights reserved.
+        </p>
       </div>
     </footer>
   );
