@@ -1,47 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getData } from '../utils/storage';
 
 function Hero() {
   const [data, setData] = useState(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const siteData = getData();
-    setData(siteData.home);
+    const homeData = siteData.home;
+    if (!homeData.heroVideoUrl) {
+      homeData.heroVideoUrl = "/hero-video-web.mp4";
+    }
+    setData(homeData);
   }, []);
+
+  // Once data is set and video element exists, ensure it plays
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    vid.muted = true;
+    vid.play().catch(() => {});
+  }, [data]);
 
   if (!data) return null;
 
   return (
     <section className="relative h-screen min-h-[640px] flex items-center justify-end px-16 overflow-hidden">
-      {/* Background */}
+      {/* Background — image always behind, video layered on top */}
       <div className="absolute inset-0 bg-near-black overflow-hidden">
-        {data.heroVideoUrl ? (
-          <video
-            src={data.heroVideoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              console.error('Video failed to load from URL, showing fallback');
-              e.target.style.display = 'none';
-            }}
-          />
-        ) : null}
-        {!data.heroVideoUrl && data.heroImage ? (
+        {data.heroImage && (
           <img
             src={data.heroImage}
             alt="Hero background"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-        ) : !data.heroVideoUrl && !data.heroImage ? (
-          <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] via-[#2d2d2d] to-[#1a1208] flex items-center justify-center">
-            <span className="text-white/10 text-[0.8rem] tracking-[0.2em] uppercase">
-              Hero background
-            </span>
-          </div>
-        ) : null}
+        )}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={data.heroVideoUrl} type="video/mp4" />
+        </video>
       </div>
 
       {/* Content */}
