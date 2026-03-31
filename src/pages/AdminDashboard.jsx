@@ -45,6 +45,12 @@ function AdminDashboard() {
       flatData[`s${num}-body`] = s.description || '';
     });
 
+    // Flatten videos
+    siteData.videos?.forEach((v, i) => {
+      const num = i + 1;
+      flatData[`v${num}-thumbnail`] = v.thumbnail || '';
+    });
+
     setFormData(flatData);
   }, [navigate]);
 
@@ -98,6 +104,15 @@ function AdminDashboard() {
         ...s,
         title: formData[`s${num}-title`] || s.title,
         description: formData[`s${num}-body`] || s.description,
+      };
+    });
+
+    // Update videos
+    siteData.videos = siteData.videos.map((v, i) => {
+      const num = i + 1;
+      return {
+        ...v,
+        thumbnail: formData[`v${num}-thumbnail`] || v.thumbnail,
       };
     });
 
@@ -155,6 +170,7 @@ function AdminDashboard() {
             { id: 'hero', icon: '🖼', label: 'Hero Section' },
             { id: 'testimonials', icon: '💬', label: 'Testimonials' },
             { id: 'portfolio', icon: '🎨', label: 'Portfolio' },
+            { id: 'videos', icon: '🎬', label: 'Videos' },
             { id: 'services', icon: '📋', label: 'Services' },
             { id: 'footer', icon: '📌', label: 'Footer' },
           ].map(section => (
@@ -476,6 +492,61 @@ function AdminDashboard() {
                         className="w-full px-[14px] py-[11px] border border-near-black/[0.12] rounded-[3px] font-body text-[0.92rem] text-near-black bg-cream outline-none resize-y min-h-[90px] leading-[1.6] transition-colors focus:border-accent"
                       />
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Videos Section */}
+          {activeSection === 'videos' && (
+            <div>
+              <h2 className="font-display text-[1.5rem] font-bold text-near-black mb-[6px]">Videos</h2>
+              <p className="text-[0.88rem] text-mid-gray mb-8 font-light">
+                Upload custom cover photos (thumbnails) for your video showcase. These images appear before the user clicks play.
+              </p>
+
+              <div className="bg-white border border-near-black/[0.08] rounded-md p-7 mb-5">
+                <h3 className="text-[0.72rem] tracking-[0.15em] uppercase text-accent font-semibold mb-[18px] pb-3 border-b border-near-black/[0.06]">
+                  Video Thumbnails
+                </h3>
+                <div className="flex gap-2 mb-5 flex-wrap">
+                  {[1, 2, 3].map(num => (
+                    <button
+                      key={num}
+                      onClick={() => switchTab('videos', num)}
+                      className={`px-[18px] py-2 border rounded-[20px] bg-transparent font-body text-[0.78rem] font-semibold cursor-pointer transition-all ${
+                        (activeTab.videos || 1) === num
+                          ? 'bg-accent text-near-black border-accent'
+                          : 'border-near-black/15 text-mid-gray hover:border-accent'
+                      }`}
+                    >
+                      Video {num}
+                    </button>
+                  ))}
+                </div>
+
+                {[1, 2, 3].map(num => (
+                  <div key={num} className={(activeTab.videos || 1) === num ? 'block' : 'hidden'}>
+                    <div className="relative border-2 border-dashed border-near-black/15 rounded p-7 text-center cursor-pointer transition-all hover:border-accent hover:bg-accent/[0.06] bg-cream">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImageUpload(e, `v${num}-thumbnail`)}
+                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      />
+                      <div className="text-[1.8rem] mb-2">🎬</div>
+                      <div className="text-[0.85rem] text-mid-gray font-medium">Click to upload thumbnail for Video {num}</div>
+                      <div className="text-[0.75rem] text-near-black/40 mt-1">JPG or PNG · 9:16 aspect ratio recommended (e.g., 720x1280px)</div>
+                    </div>
+                    {formData[`v${num}-thumbnail`] && (
+                      <img
+                        src={formData[`v${num}-thumbnail`]}
+                        alt={`Video ${num} thumbnail`}
+                        className="w-full max-w-[240px] mx-auto mt-3 rounded-[3px] object-cover"
+                        style={{ aspectRatio: '9/16' }}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
