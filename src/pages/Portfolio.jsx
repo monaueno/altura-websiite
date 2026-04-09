@@ -6,10 +6,17 @@ import Footer from '../components/Footer';
 
 function Portfolio() {
   const [portfolioItems, setPortfolioItems] = useState([]);
+  const [heroData, setHeroData] = useState(null);
 
   useEffect(() => {
     const siteData = getData();
     setPortfolioItems(siteData.portfolio || []);
+    setHeroData(siteData.portfolioHero || {
+      title: 'Our Work',
+      subtitle: 'Strategic creative that drives results. Every project is built on insight, intention, and execution.',
+      backgroundImage: '',
+      logo: ''
+    });
   }, []);
 
   return (
@@ -17,13 +24,32 @@ function Portfolio() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="px-12 py-24 bg-near-black">
-        <div className="max-w-7xl mx-auto text-center">
+      <section
+        className="px-12 py-12 bg-near-black relative h-[80vh] min-h-[320px] flex items-center justify-end overflow-hidden"
+        style={{
+          backgroundImage: heroData?.backgroundImage ? `url(${heroData.backgroundImage})` : 'none',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Dark overlay if background image exists */}
+        {heroData?.backgroundImage && (
+          <div className="absolute inset-0 bg-near-black/60" />
+        )}
+
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          {heroData?.logo && (
+            <img
+              src={heroData.logo}
+              alt="Brand logo"
+              className="max-h-[120px] object-contain mx-auto mb-8"
+            />
+          )}
           <h1 className="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold text-white mb-6 leading-[1.1]">
-            Our Work
+            {heroData?.title || 'Our Work'}
           </h1>
           <p className="text-white/70 text-[1.1rem] font-subheading max-w-2xl mx-auto">
-            Strategic creative that drives results. Every project is built on insight, intention, and execution.
+            {heroData?.subtitle || 'Strategic creative that drives results. Every project is built on insight, intention, and execution.'}
           </p>
         </div>
       </section>

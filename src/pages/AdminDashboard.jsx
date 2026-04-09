@@ -51,6 +51,12 @@ function AdminDashboard() {
       flatData[`v${num}-thumbnail`] = v.thumbnail || '';
     });
 
+    // Flatten portfolio hero
+    flatData['portfolioHeroTitle'] = siteData.portfolioHero?.title || '';
+    flatData['portfolioHeroSubtitle'] = siteData.portfolioHero?.subtitle || '';
+    flatData['portfolioHeroImage'] = siteData.portfolioHero?.backgroundImage || '';
+    flatData['portfolioHeroLogo'] = siteData.portfolioHero?.logo || '';
+
     setFormData(flatData);
   }, [navigate]);
 
@@ -115,6 +121,14 @@ function AdminDashboard() {
         thumbnail: formData[`v${num}-thumbnail`] || v.thumbnail,
       };
     });
+
+    // Update portfolio hero
+    siteData.portfolioHero = {
+      title: formData['portfolioHeroTitle'] || siteData.portfolioHero?.title || 'Our Work',
+      subtitle: formData['portfolioHeroSubtitle'] || siteData.portfolioHero?.subtitle || '',
+      backgroundImage: formData['portfolioHeroImage'] || siteData.portfolioHero?.backgroundImage || '',
+      logo: formData['portfolioHeroLogo'] || siteData.portfolioHero?.logo || '',
+    };
 
     setData(siteData);
     setShowToast(true);
@@ -417,12 +431,81 @@ function AdminDashboard() {
             <div>
               <h2 className="font-display text-[1.5rem] font-bold text-near-black mb-[6px]">Portfolio</h2>
               <p className="text-[0.88rem] text-mid-gray mb-8 font-light">
-                Edit the portfolio section text that appears on the homepage.
+                Edit the portfolio page hero section and homepage portfolio text.
               </p>
 
               <div className="bg-white border border-near-black/[0.08] rounded-md p-7 mb-5">
                 <h3 className="text-[0.72rem] tracking-[0.15em] uppercase text-accent font-semibold mb-[18px] pb-3 border-b border-near-black/[0.06]">
-                  Section Text
+                  Portfolio Page Hero
+                </h3>
+                <div className="mb-[18px]">
+                  <label className="block text-[0.72rem] tracking-[0.1em] uppercase text-near-black/50 font-semibold mb-2">
+                    Logo (appears above title)
+                  </label>
+                  <div className="relative border-2 border-dashed border-near-black/15 rounded p-5 text-center cursor-pointer transition-all hover:border-accent hover:bg-accent/[0.06] bg-cream">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, 'portfolioHeroLogo')}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                    <div className="text-[1.4rem] mb-2">🏢</div>
+                    <div className="text-[0.82rem] text-mid-gray font-medium">Upload brand logo</div>
+                    <div className="text-[0.7rem] text-near-black/40 mt-1">PNG with transparent background recommended</div>
+                  </div>
+                  {formData.portfolioHeroLogo && (
+                    <div className="mt-3 p-3 bg-white border border-near-black/10 rounded">
+                      <img src={formData.portfolioHeroLogo} alt="Logo preview" className="max-h-[60px] object-contain mx-auto" />
+                    </div>
+                  )}
+                </div>
+                <div className="mb-[18px]">
+                  <label className="block text-[0.72rem] tracking-[0.1em] uppercase text-near-black/50 font-semibold mb-2">
+                    Background Image
+                  </label>
+                  <div className="relative border-2 border-dashed border-near-black/15 rounded p-7 text-center cursor-pointer transition-all hover:border-accent hover:bg-accent/[0.06] bg-cream">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, 'portfolioHeroImage')}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                    <div className="text-[1.8rem] mb-2">🖼️</div>
+                    <div className="text-[0.85rem] text-mid-gray font-medium">Click to upload hero background</div>
+                    <div className="text-[0.75rem] text-near-black/40 mt-1">JPG or PNG · Wide landscape image recommended</div>
+                  </div>
+                  {formData.portfolioHeroImage && (
+                    <img src={formData.portfolioHeroImage} alt="Portfolio hero preview" className="w-full max-h-[200px] object-cover rounded-[3px] mt-3" />
+                  )}
+                </div>
+                <div className="mb-[18px]">
+                  <label className="block text-[0.72rem] tracking-[0.1em] uppercase text-near-black/50 font-semibold mb-2">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.portfolioHeroTitle || ''}
+                    onChange={(e) => handleInputChange('portfolioHeroTitle', e.target.value)}
+                    placeholder="Our Work"
+                    className="w-full px-[14px] py-[11px] border border-near-black/[0.12] rounded-[3px] font-body text-[0.92rem] text-near-black bg-cream outline-none transition-colors focus:border-accent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[0.72rem] tracking-[0.1em] uppercase text-near-black/50 font-semibold mb-2">
+                    Subtitle
+                  </label>
+                  <textarea
+                    value={formData.portfolioHeroSubtitle || ''}
+                    onChange={(e) => handleInputChange('portfolioHeroSubtitle', e.target.value)}
+                    placeholder="Strategic creative that drives results..."
+                    className="w-full px-[14px] py-[11px] border border-near-black/[0.12] rounded-[3px] font-body text-[0.92rem] text-near-black bg-cream outline-none resize-y min-h-[90px] leading-[1.6] transition-colors focus:border-accent"
+                  />
+                </div>
+              </div>
+
+              <div className="bg-white border border-near-black/[0.08] rounded-md p-7 mb-5">
+                <h3 className="text-[0.72rem] tracking-[0.15em] uppercase text-accent font-semibold mb-[18px] pb-3 border-b border-near-black/[0.06]">
+                  Homepage Portfolio Section
                 </h3>
                 <div>
                   <label className="block text-[0.72rem] tracking-[0.1em] uppercase text-near-black/50 font-semibold mb-2">
