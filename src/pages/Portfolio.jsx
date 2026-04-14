@@ -32,7 +32,7 @@ function Portfolio() {
 
   if (portfolioItems.length === 0) {
     return (
-      <div className="min-h-screen bg-cream">
+      <div className="min-h-screen bg-portfolio-cream">
         <Navbar />
         <div className="flex items-center justify-center h-[60vh]">
           <p className="text-mid-gray text-[1.1rem] font-subheading">
@@ -49,21 +49,13 @@ function Portfolio() {
   const CARD_H = 500;
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-portfolio-cream">
       <Navbar />
 
       {/* Small Hero Section */}
       <section
-        className="px-12 py-16 bg-near-black relative overflow-hidden"
-        style={{
-          backgroundImage: heroData?.backgroundImage ? `url(${heroData.backgroundImage})` : 'none',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="px-12 py-20 bg-portfolio-cream relative overflow-hidden"
       >
-        {heroData?.backgroundImage && (
-          <div className="absolute inset-0 bg-near-black/60" />
-        )}
 
         <div className="max-w-7xl mx-auto text-center relative z-10">
           {heroData?.logo && (
