@@ -74,46 +74,38 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* Full Screen Portfolio Section */}
-      <section className="relative bg-portfolio-cream min-h-[calc(100vh-200px)] flex items-center justify-center overflow-hidden">
-        {/* Current Portfolio Item */}
-        <div className="w-full h-full absolute inset-0 transition-opacity duration-500">
-          <PortfolioSlide item={portfolioItems[currentIndex]} />
-        </div>
+      {/* Portfolio Card Section */}
+      <section className="bg-portfolio-cream px-12 pb-16">
+        <PortfolioSlide item={portfolioItems[currentIndex]} />
 
         {/* Navigation Arrows */}
-        <div className="absolute bottom-12 right-12 flex gap-4 z-20">
+        <div className="flex justify-end gap-4 mt-10 max-w-7xl">
           <button
             onClick={handlePrev}
             disabled={isFirst}
-            className={`w-14 h-14 border-2 rounded-full cursor-pointer flex items-center justify-center transition-all ${
+            className={`w-12 h-12 border-2 rounded-full cursor-pointer flex items-center justify-center transition-all ${
               isFirst
-                ? 'border-white/20 text-white/30 cursor-default bg-near-black/20'
-                : 'border-white/60 bg-near-black/40 text-white hover:border-accent hover:bg-accent backdrop-blur-sm'
+                ? 'border-mid-gray/20 text-mid-gray/30 cursor-default'
+                : 'border-near-black text-near-black hover:bg-near-black hover:text-white'
             }`}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
           <button
             onClick={handleNext}
             disabled={isLast}
-            className={`w-14 h-14 border-2 rounded-full cursor-pointer flex items-center justify-center transition-all ${
+            className={`w-12 h-12 border-2 rounded-full cursor-pointer flex items-center justify-center transition-all ${
               isLast
-                ? 'border-white/20 text-white/30 cursor-default bg-near-black/20'
-                : 'border-white/60 bg-near-black/40 text-white hover:border-accent hover:bg-accent backdrop-blur-sm'
+                ? 'border-mid-gray/20 text-mid-gray/30 cursor-default'
+                : 'border-near-black text-near-black hover:bg-near-black hover:text-white'
             }`}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
-        </div>
-
-        {/* Progress Indicator */}
-        <div className="absolute bottom-12 left-12 text-white/80 font-subheading text-sm z-20">
-          <span className="font-bold">{currentIndex + 1}</span> / {portfolioItems.length}
         </div>
       </section>
 
@@ -124,33 +116,88 @@ function Portfolio() {
 
 function PortfolioSlide({ item }) {
   return (
-    <div className="w-full h-full relative">
-      {/* Background Image */}
-      {item.image ? (
-        <div
-          className="absolute inset-0 bg-portfolio-cream bg-portfolio-cream"
-          style={{ backgroundImage: `url(${item.image})` }}
-        />
-      ) : (
-        <div className="absolute inset-0 bg-portfolio-cream" />
-      )}
+    <div className="max-w-7xl h-[700px]">
+      <div className="flex gap-12 h-full">
+        {/* Left — Image */}
+        <div className="w-[45%] flex-shrink-0 h-full">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-full object-cover rounded-sm"
+            />
+          ) : (
+            <div className="w-full h-full bg-mid-gray/10 rounded-sm" />
+          )}
+        </div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-portfolio-cream" />
+        {/* Right — Strategy + Performance */}
+        <div className="flex-1 flex flex-col justify-center">
+          {/* AD STRATEGY */}
+          {item.strategyBullets && item.strategyBullets.length > 0 && (
+            <div>
+              <h3 className="font-display text-[1.5rem] font-bold text-near-black mb-6 tracking-wide">
+                AD STRATEGY
+              </h3>
+              <div className="space-y-5 ml-2">
+                {item.strategyBullets.map((bullet, i) => (
+                  <div key={i}>
+                    <p className="font-body text-[0.95rem] font-bold text-near-black leading-[1.4]">
+                      {bullet.title || bullet}
+                    </p>
+                    {bullet.description && (
+                      <p className="font-body text-[0.95rem] text-near-black/80 leading-[1.6] mt-1">
+                        {bullet.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-      {/* Content */}
-      <div className="absolute inset-0 flex items-end px-16 py-16 z-10">
-        <div className="max-w-3xl">
-          <h2 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-white mb-4 leading-[1.1]">
-            {item.title}
-          </h2>
-          <p className="text-white/90 text-[1.3rem] font-subheading leading-[1.6] mb-6">
-            {item.shortDescription}
-          </p>
-          {item.tagline && (
-            <p className="text-accent text-[1.1rem] font-display italic">
-              "{item.tagline}"
-            </p>
+          {/* PERFORMANCE */}
+          {item.metrics && item.metrics.length > 0 && (
+            <div className="mt-10">
+              <h3 className="font-display text-[1.5rem] font-bold text-near-black mb-6 tracking-wide">
+                PERFORMANCE
+              </h3>
+              <div className="flex gap-16">
+                {item.metrics.map((metric, i) => (
+                  <div key={i} className="flex-1">
+                    {/* Metric pill */}
+                    <div className="inline-block border-2 border-near-black rounded-full px-6 py-2 mb-4">
+                      <span className="font-body text-[0.95rem] font-bold text-near-black">
+                        {metric.label}: {metric.value}
+                      </span>
+                    </div>
+
+                    <p className="font-body text-[0.85rem] font-bold text-near-black uppercase tracking-wide">
+                      {metric.industryLabel}
+                    </p>
+                    {metric.industryContext && (
+                      <p className="font-body text-[0.85rem] italic text-near-black/70 mb-3">
+                        {metric.industryContext}
+                      </p>
+                    )}
+
+                    {/* Benchmarks */}
+                    <div className="space-y-0.5">
+                      {metric.benchmarks.map((b, j) => (
+                        <p
+                          key={j}
+                          className={`font-body text-[0.85rem] text-near-black/80 ${
+                            b.bold ? 'font-bold italic' : ''
+                          }`}
+                        >
+                          {b.level}: {b.range}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </div>

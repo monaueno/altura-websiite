@@ -59,28 +59,82 @@ const defaultData = {
   portfolio: [
     {
       id: "1",
-      slug: "sample-project-1",
-      title: "Sample Project 1",
-      shortDescription: "Strategic campaign for lifestyle brand focusing on millennial audience engagement.",
+      slug: "salt-final-sale",
+      title: "Salt Final Sale",
       image: "/assets/portfolio/placeholder-1.jpg",
-      tagline: "Where authenticity meets strategy",
       strategyBullets: [
-        "Identified core audience pain points through social listening",
-        "Developed messaging framework emphasizing emotional connection",
-        "Created cohesive visual system across all touchpoints"
+        {
+          title: "STRATEGIC PROMOTION",
+          description: "A limited-time \"Final Sale\" on two discontinued organizers drove urgency and increased traffic during a slower sales period."
+        },
+        {
+          title: "INVENTORY OPTIMIZATION",
+          description: "The promotion helped Salt clear remaining inventory of phased-out products while maintaining a controlled discount strategy."
+        },
+        {
+          title: "PERFORMANCE LIFT",
+          description: "Although only two products were discounted, the campaign drove additional full-price purchases, improving overall account performance."
+        }
+      ],
+      metrics: [
+        {
+          label: "ROAS",
+          value: "6.88",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(DTC Home Goods / Organization)",
+          benchmarks: [
+            { level: "AVERAGE", range: "2.0 – 3.0" },
+            { level: "GOOD", range: "3.0 – 4.0" },
+            { level: "STRONG", range: "4.0 – 5.0" },
+            { level: "EXCELLENT", range: "5.0+", bold: true }
+          ]
+        },
+        {
+          label: "CTR",
+          value: "5.18%",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(DTC eCommerce)",
+          benchmarks: [
+            { level: "AVERAGE", range: "1.0% – 1.8%" },
+            { level: "GOOD", range: "1.8% – 2.5%" },
+            { level: "STRONG", range: "2.5% – 3.5%" },
+            { level: "EXCELLENT", range: "3.5%+", bold: true }
+          ]
+        }
       ]
     },
     {
       id: "2",
       slug: "sample-project-2",
       title: "Sample Project 2",
-      shortDescription: "Paid social campaign driving 3x ROAS for e-commerce client.",
       image: "/assets/portfolio/placeholder-2.jpg",
-      tagline: "Data-driven creative that converts",
       strategyBullets: [
-        "Conducted competitive analysis and market positioning",
-        "Tested 15+ creative variants to optimize performance",
-        "Scaled winning concepts across Meta and TikTok"
+        {
+          title: "COMPETITIVE ANALYSIS",
+          description: "Conducted competitive analysis and market positioning to identify opportunities."
+        },
+        {
+          title: "CREATIVE TESTING",
+          description: "Tested 15+ creative variants to optimize performance across platforms."
+        },
+        {
+          title: "SCALING",
+          description: "Scaled winning concepts across Meta and TikTok for maximum reach."
+        }
+      ],
+      metrics: [
+        {
+          label: "ROAS",
+          value: "4.20",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(DTC eCommerce)",
+          benchmarks: [
+            { level: "AVERAGE", range: "2.0 – 3.0" },
+            { level: "GOOD", range: "3.0 – 4.0" },
+            { level: "STRONG", range: "4.0 – 5.0", bold: true },
+            { level: "EXCELLENT", range: "5.0+" }
+          ]
+        }
       ]
     }
   ],
