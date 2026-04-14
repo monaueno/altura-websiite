@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { getData } from '../utils/storage';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [logoImage, setLogoImage] = useState('');
   const location = useLocation();
-
-  useEffect(() => {
-    const siteData = getData();
-    setLogoImage(siteData.home.logoImage || '/assets/Images/altura-logo.png');
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,13 +47,14 @@ function Navbar() {
       />
       {/* Logo */}
       <Link to="/" className="relative z-10 flex items-center">
-        {logoImage ? (
-          <img src={logoImage} alt="Altura" className="w-[108px] h-[108px]" />
-        ) : (
-          <span className={`font-display text-[1.4rem] font-bold tracking-[0.04em] ${isDarkText ? 'text-near-black' : 'text-white'}`}>
-            Annalise
-          </span>
-        )}
+        <img
+          src={isDarkText
+            ? '/assets/Altura - Logo Suite/02 Secondary Logo/PNG/SecondaryLogo-FullColor.png'
+            : '/assets/Altura - Logo Suite/02 Secondary Logo/PNG/SecondaryLogo-White.png'
+          }
+          alt="Altura"
+          className="w-[108px] h-[108px]"
+        />
       </Link>
 
       {/* Nav Links */}
