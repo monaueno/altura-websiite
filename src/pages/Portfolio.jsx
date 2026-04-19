@@ -153,7 +153,7 @@ function PortfolioSlide({ item }) {
         </div>
 
         {/* Right — Strategy + Performance */}
-        <div className="flex-1 flex flex-col justify-start">
+        <div className="flex-1 flex flex-col justify-start" style={{ transform: 'scaleY(1.1)', transformOrigin: 'top' }}>
           {/* AD STRATEGY */}
           {item.strategyBullets && item.strategyBullets.length > 0 && (
             <div>
@@ -167,7 +167,7 @@ function PortfolioSlide({ item }) {
                       {bullet.title || bullet}
                     </p>
                     {bullet.description && (
-                      <p className="font-body text-[0.95rem] text-near-black/80 leading-[1.6] mt-1 tracking-[0.03em]">
+                      <p className="font-body text-[0.95rem] text-near-black/80 leading-[1.6] mt-0 tracking-[0.03em]">
                         {bullet.description}
                       </p>
                     )}
@@ -187,17 +187,17 @@ function PortfolioSlide({ item }) {
                 {item.metrics.map((metric, i) => (
                   <div key={i} className="flex-1">
                     {/* Metric pill */}
-                    <div className="inline-block border-2 border-near-black rounded-full px-6 py-2 mb-4">
+                    <div className="inline-block border-2 border-near-black rounded-full px-6 py-2 mb-6">
                       <span className="font-body text-[0.95rem] font-bold text-near-black tracking-[0.03em]">
                         {metric.label}: {metric.value}
                       </span>
                     </div>
 
-                    <p className="font-body text-[0.85rem] font-bold text-near-black uppercase tracking-wide">
+                    <p className="font-body text-[0.85rem] font-normal text-near-black uppercase tracking-wide">
                       {metric.industryLabel}
                     </p>
                     {metric.industryContext && (
-                      <p className="font-body text-[0.85rem] italic text-near-black/70 mb-3 tracking-[0.03em]">
+                      <p className="font-body text-[0.85rem] italic text-near-black/70 mb-5 tracking-[0.03em]">
                         {metric.industryContext}
                       </p>
                     )}

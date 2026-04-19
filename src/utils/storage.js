@@ -109,34 +109,92 @@ const defaultData = {
     },
     {
       id: "2",
-      slug: "sample-project-2",
-      title: "Sample Project 2",
-      image: "/assets/portfolio/placeholder-2.jpg",
+      slug: "salt-drawer",
+      title: "Salt Drawer",
+      image: "/assets/Porfolio/Statics/Salt.jpeg",
       strategyBullets: [
         {
-          title: "COMPETITIVE ANALYSIS",
-          description: "Conducted competitive analysis and market positioning to identify opportunities."
+          title: "HIGHLIGHT PRODUCT QUALITY",
+          description: "Emphasize the durability of Salt by Sabrina organizers through clean, product-focused visuals."
         },
         {
-          title: "CREATIVE TESTING",
-          description: "Tested 15+ creative variants to optimize performance across platforms."
+          title: "REINFORCE CUSTOM-FIT DESIGN",
+          description: "Show the organizer placed directly in the drawer to communicate a precise, made-for-your-space fit."
         },
         {
-          title: "SCALING",
-          description: "Scaled winning concepts across Meta and TikTok for maximum reach."
+          title: "POSITION AS A PREMIUM, LASTING SOLUTION",
+          description: "Messaging like frames the product as a long-term investment and differentiates it from typical expandable organizers."
         }
       ],
       metrics: [
         {
           label: "ROAS",
-          value: "4.20",
+          value: "8.36%",
           industryLabel: "INDUSTRY STANDARD",
-          industryContext: "(DTC eCommerce)",
+          industryContext: "(DTC Home Goods / Organization)",
           benchmarks: [
             { level: "AVERAGE", range: "2.0 – 3.0" },
             { level: "GOOD", range: "3.0 – 4.0" },
-            { level: "STRONG", range: "4.0 – 5.0", bold: true },
-            { level: "EXCELLENT", range: "5.0+" }
+            { level: "STRONG", range: "4.0 – 5.0" },
+            { level: "EXCELLENT", range: "5.0+", bold: true }
+          ]
+        },
+        {
+          label: "CTR",
+          value: "3.26%",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(DTC eCommerce)",
+          benchmarks: [
+            { level: "AVERAGE", range: "1.0% – 1.8%" },
+            { level: "GOOD", range: "1.8% – 2.5%" },
+            { level: "STRONG", range: "2.5% – 3.5%", bold: true },
+            { level: "EXCELLENT", range: "3.5%+"}
+          ]
+        }
+      ]
+    },
+    {
+      id: "3",
+      slug: "solopro-tax",
+      title: "SoloPro Tax",
+      image: "/assets/Porfolio/Statics/SoloPro-Tax.jpg",
+      strategyBullets: [
+        {
+          title: "AUDIENCE IDENTIFICATION HOOK",
+          description: "The ad calls out specific self-employed roles, helping viewers quickly recognize the service is built for people like them."
+        },
+        {
+          title: "RELATABLE PROBLEM → CLEAR SOLUTION",
+          description: "Messaging acknowledges that freelancers aren’t accountants and positions SoloPro Tax as the service that handles taxes so professionals can focus on their work."
+        },
+        {
+          title: "ENGAGING DELIVERY",
+          description: "Dynamic text cycles through multiple professions while simple visuals of people working in their craft reinforce the message and increase viewer engagement."
+        }
+      ],
+      metrics: [
+        {
+          label: "CTR",
+          value: "4.99%",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(Service-based Lead Gen)",
+          benchmarks: [
+            { level: "AVERAGE", range: "0.9% – 1.6%" },
+            { level: "GOOD", range: "1.6% – 2.5%" },
+            { level: "STRONG", range: "2.5% – 4%" },
+            { level: "EXCELLENT", range: "4%+", bold: true }
+          ]
+        },
+        {
+          label: "CPC",
+          value: "$0.47",
+          industryLabel: "INDUSTRY STANDARD",
+          industryContext: "(Financial / Tax / Business Services)",
+          benchmarks: [
+            { level: "AVERAGE", range: "$1.50 – $4.00" },
+            { level: "GOOD", range: "$0.80 – $1.50" },
+            { level: "STRONG", range: "$0.40 – $0.80", bold: true },
+            { level: "EXCELLENT", range: "< $0.40"}
           ]
         }
       ]
