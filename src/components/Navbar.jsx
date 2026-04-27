@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { getData } from '../utils/storage';
 
 function Navbar() {
   const [bgOpacity, setBgOpacity] = useState(0);
@@ -37,9 +36,16 @@ function Navbar() {
     };
   }, [location.pathname]);
 
+  // Pages with light/cream backgrounds need dark navbar text
+  const darkTextPages = ['/portfolio'];
+  const isDarkText = darkTextPages.includes(location.pathname);
+
   const getLinkClass = (path) => {
     const isActive = location.pathname === path;
-    const baseClass = "font-display text-white/85 text-[20px] leading-[150%] uppercase transition-colors hover:text-[#A4BDE0]";
+    const textColor = isDarkText
+      ? "text-near-black/85 hover:text-near-black"
+      : "text-white/85 hover:text-[#A4BDE0]";
+    const baseClass = `font-display ${textColor} text-[20px] leading-[150%] uppercase transition-colors`;
     const activeClass = "font-bold italic tracking-[0.05em]";
     const inactiveClass = "font-normal tracking-[0%]";
     return `${baseClass} ${isActive ? activeClass : inactiveClass}`;
@@ -58,13 +64,14 @@ function Navbar() {
       />
       {/* Logo */}
       <Link to="/" className="relative z-10 flex items-center">
-        {logoImage ? (
-          <img src={logoImage} alt="Altura" className="w-[108px] h-[108px]" />
-        ) : (
-          <span className="font-display text-[1.4rem] font-bold text-white tracking-[0.04em]">
-            Annalise
-          </span>
-        )}
+        <img
+          src={isDarkText
+            ? '/assets/Altura - Logo Suite/02 Secondary Logo/PNG/SecondaryLogo-FullColor.png'
+            : '/assets/Altura - Logo Suite/02 Secondary Logo/PNG/SecondaryLogo-White.png'
+          }
+          alt="Altura"
+          className="w-[108px] h-[108px]"
+        />
       </Link>
 
       {/* Nav Links */}
