@@ -2,8 +2,27 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { getData } from '../utils/storage';
+
+const defaultBio = `The name Altura was inspired by an experience I had with my grandpa.
+
+As a family, we hiked Handies Peak. At 73, my grandpa set a goal to reach the highest altitude he had ever hiked: 13,000 feet. As we got close to the top, we climbed straight up the mountain. I watched as he felt joy, excitement, and a deep sense of accomplishment.
+
+In that moment, I was reminded that progress is personal and intentional.
+
+It's a moment I never want to forget. A moment I want my business to stand for. And a moment I hope to relive again and again with the clients whose businesses I help take to new heights.
+
+The word Altura is derived from the Latin altūra, meaning "height" or "loftiness," often used to describe physical or metaphorical elevation.
+
+To me, Altura stands for intentional progress—for setting meaningful goals and doing the work required to reach them.
+
+That's what I aim to help my clients do every day.`;
 
 function About() {
+  const data = getData();
+  const about = data.about || {};
+  const photo = about.photo || '/assets/Images/Grandpa Max/Annalise-and-Grandpa.jpg';
+  const bio = about.bio || defaultBio;
   // Scroll reveal
   const revealRefs = useRef([]);
   useEffect(() => {
@@ -93,7 +112,7 @@ function About() {
           {/* Left — photo */}
           <div className="lg:w-[561px] shrink-0" ref={addRevealRef}>
             <img
-              src="/assets/Images/Grandpa Max/Annalise-and-Grandpa.jpg"
+              src={photo}
               alt="Annalise Hart"
               className="w-full h-[657px] object-cover rounded-lg"
             />
@@ -106,21 +125,9 @@ function About() {
             </h2>
 
             <div className="font-subheading font-light text-[18px] leading-[1.2] text-near-black space-y-5">
-              <p>The name Altura was inspired by an experience I had with my grandpa.</p>
-              <p>
-                As a family, we hiked Handies Peak. At 73, my grandpa set a goal to reach the highest altitude he had ever hiked: 13,000 feet. As we got close to the top, we climbed straight up the mountain. I watched as he felt joy, excitement, and a deep sense of accomplishment.
-              </p>
-              <p>In that moment, I was reminded that progress is personal and intentional.</p>
-              <p>
-                It's a moment I never want to forget. A moment I want my business to stand for. And a moment I hope to relive again and again with the clients whose businesses I help take to new heights.
-              </p>
-              <p>
-                The word Altura is derived from the Latin alt&#363;ra, meaning "height" or "loftiness," often used to describe physical or metaphorical elevation.
-              </p>
-              <p>
-                To me, Altura stands for intentional progress&mdash;for setting meaningful goals and doing the work required to reach them.
-              </p>
-              <p>That's what I aim to help my clients do every day.</p>
+              {bio.split('\n\n').map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
             </div>
 
             <p className="font-subheading font-light text-[15px] uppercase tracking-[0.05em] text-near-black mt-8">

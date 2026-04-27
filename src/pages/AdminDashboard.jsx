@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getData, setData } from '../utils/storage';
+import AboutEditor from '../components/admin/AboutEditor';
+import BlogEditor from '../components/admin/BlogEditor';
+import PortfolioEditor from '../components/admin/PortfolioEditor';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -56,6 +59,20 @@ function AdminDashboard() {
     flatData['portfolioHeroSubtitle'] = siteData.portfolioHero?.subtitle || '';
     flatData['portfolioHeroImage'] = siteData.portfolioHero?.backgroundImage || '';
     flatData['portfolioHeroLogo'] = siteData.portfolioHero?.logo || '';
+
+    // Nested data for CRUD sections
+    flatData._about = { ...(siteData.about || { photo: '', bio: '' }) };
+    flatData._blog = (siteData.blog || []).map(p => ({ ...p }));
+    flatData._portfolio = (siteData.portfolio || []).map(p => ({
+      ...p,
+      strategyBullets: (p.strategyBullets || []).map(b => ({ ...b })),
+      metrics: (p.metrics || []).map(m => ({
+        ...m,
+        benchmarks: (m.benchmarks || []).map(b => ({ ...b })),
+      })),
+    }));
+    flatData._portfolioHero = { ...(siteData.portfolioHero || { title: '', subtitle: '' }) };
+    flatData._portfolioMountain = { ...(siteData.portfolioMountain || { title: '', subtitle: '' }) };
 
     setFormData(flatData);
   }, [navigate]);
@@ -122,13 +139,20 @@ function AdminDashboard() {
       };
     });
 
-    // Update portfolio hero
+    // Update portfolio hero (from flat fields)
     siteData.portfolioHero = {
       title: formData['portfolioHeroTitle'] || siteData.portfolioHero?.title || 'Our Work',
       subtitle: formData['portfolioHeroSubtitle'] || siteData.portfolioHero?.subtitle || '',
       backgroundImage: formData['portfolioHeroImage'] || siteData.portfolioHero?.backgroundImage || '',
       logo: formData['portfolioHeroLogo'] || siteData.portfolioHero?.logo || '',
     };
+
+    // Save nested CRUD data
+    if (formData._about) siteData.about = formData._about;
+    if (formData._blog) siteData.blog = formData._blog;
+    if (formData._portfolio) siteData.portfolio = formData._portfolio;
+    if (formData._portfolioHero) siteData.portfolioHero = { ...siteData.portfolioHero, ...formData._portfolioHero };
+    if (formData._portfolioMountain) siteData.portfolioMountain = formData._portfolioMountain;
 
     setData(siteData);
     setShowToast(true);
@@ -208,8 +232,11 @@ function AdminDashboard() {
           </div>
           {[
             { id: 'hero', icon: '🖼', label: 'Hero Section' },
+            { id: 'about', icon: '👤', label: 'About Page' },
             { id: 'testimonials', icon: '💬', label: 'Testimonials' },
-            { id: 'portfolio', icon: '🎨', label: 'Portfolio' },
+            { id: 'portfolioFull', icon: '💼', label: 'Portfolio Projects' },
+            { id: 'blog', icon: '📝', label: 'Blog Posts' },
+            { id: 'portfolio', icon: '🎨', label: 'Showcase Text' },
             { id: 'videos', icon: '🎬', label: 'Videos' },
             { id: 'services', icon: '📋', label: 'Services' },
             { id: 'footer', icon: '📌', label: 'Footer' },
@@ -660,6 +687,21 @@ function AdminDashboard() {
                 ))}
               </div>
             </div>
+          )}
+
+          {/* About Section */}
+          {activeSection === 'about' && (
+            <AboutEditor formData={formData} setFormData={setFormData} handleImageUpload={handleImageUpload} />
+          )}
+
+          {/* Blog Section */}
+          {activeSection === 'blog' && (
+            <BlogEditor formData={formData} setFormData={setFormData} />
+          )}
+
+          {/* Portfolio Projects Section */}
+          {activeSection === 'portfolioFull' && (
+            <PortfolioEditor formData={formData} setFormData={setFormData} />
           )}
 
           {/* Footer Section */}
