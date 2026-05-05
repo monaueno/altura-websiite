@@ -165,8 +165,8 @@ function Card({ testimonial, height, translateX, darkOverlay, zIndex, cardH, sca
               <img
                 src={testimonial.logo}
                 alt="signature"
-                className="max-h-[100px] object-contain"
-                style={{ maxHeight: `${100 * scale}px` }}
+                className="object-contain"
+                style={{ height: `${(testimonial.logoScale || 50) * scale}px` }}
               />
             </div>
           )}

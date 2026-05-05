@@ -138,20 +138,23 @@ const defaultData = {
   testimonials: [
     {
       id: "1",
-      quote: "“[Annalise] came to every meeting prepared, organized, and clearly knowledgeable about what she was doing. We always felt confident in her strategy and recommendations because she truly understood the numbers and how they connected to our brand goals.",
+      quote: "[Annalise] came to every meeting prepared, organized, and clearly knowledgeable about what she was doing. We always felt confident in her strategy and recommendations because she truly understood the numbers and how they connected to our brand goals.",
       logo: "/assets/Home-Page-Defaults/lime-ricki-signature.png",
+      logoScale: 50,
       avatar: "Alacia Maloy, Dir. of Comms & Ops"
     },
     {
       id: "2",
       quote: "After one of our lowest months on record, we saw 90% month-over-month growth throughout the second half of 2025, and that momentum has continued into the first months of 2026. Annalise has been a key driver of our growth, and I cannot recommend her or Altura Marketing highly enough.",
-      logo: "public/assets/Home-Page-Defaults/salt-logo.png",
+      logo: "/assets/Home-Page-Defaults/salt-logo.png",
+      logoScale: 50,
       avatar: "Sabrina Gardner, CEO"
     },
     {
       id: "3",
       quote: "[Annalise] is incredibly hardworking, creative, and genuinely committed to helping her clients succeed. She takes the time to understand each business and consistently looks for ways to help them grow and improve. Her dedication, attention to detail, and passion for what she does really set her apart.",
-      logo: "public/assets/Home-Page-Defaults/BoostedSafe-Logo.png",
+      logo: "/assets/Home-Page-Defaults/BoostedSafe-Logo.png",
+      logoScale: 50,
       avatar: "Skyler Baird, CEO"
     }
   ],

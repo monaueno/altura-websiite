@@ -86,6 +86,7 @@ function AdminDashboard() {
       flatData[`t${num}-quote`] = t.quote || '';
       flatData[`t${num}-avatar`] = t.avatar || '';
       flatData[`t${num}-logo`] = t.logo || '';
+      flatData[`t${num}-logoScale`] = t.logoScale || 50;
     });
 
     // Flatten services
@@ -152,6 +153,7 @@ function AdminDashboard() {
         quote: formData[`t${num}-quote`] || t.quote,
         avatar: formData[`t${num}-avatar`] || t.avatar,
         logo: formData[`t${num}-logo`] || t.logo,
+        logoScale: formData[`t${num}-logoScale`] ?? t.logoScale ?? 50,
       };
     });
 
@@ -558,7 +560,26 @@ function AdminDashboard() {
                       </div>
                       {formData[`t${num}-logo`] && (
                         <div className="mt-3 p-3 bg-[#F8F8F8] border border-near-black/[0.04] rounded-lg">
-                          <img src={formData[`t${num}-logo`]} alt="Logo preview" className="max-h-[50px] object-contain mx-auto" />
+                          <img src={formData[`t${num}-logo`]} alt="Logo preview" className="object-contain" style={{ height: `${formData[`t${num}-logoScale`] || 50}px` }} />
+                        </div>
+                      )}
+                      {formData[`t${num}-logo`] && (
+                        <div className="mt-3">
+                          <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2">
+                            Logo Size — {formData[`t${num}-logoScale`] || 50}px
+                          </label>
+                          <input
+                            type="range"
+                            min="20"
+                            max="150"
+                            value={formData[`t${num}-logoScale`] || 50}
+                            onChange={(e) => handleInputChange(`t${num}-logoScale`, Number(e.target.value))}
+                            className="w-full accent-near-black cursor-pointer"
+                          />
+                          <div className="flex justify-between text-[0.75rem] text-near-black/30 mt-1">
+                            <span>Small</span>
+                            <span>Large</span>
+                          </div>
                         </div>
                       )}
                     </div>
