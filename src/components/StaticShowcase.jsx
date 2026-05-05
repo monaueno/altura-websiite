@@ -5,6 +5,7 @@ function StaticShowcase() {
   const [data, setData] = useState(null);
   const [videos, setVideos] = useState([]);
   const [activeVideo, setActiveVideo] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const videoRefs = useRef([]);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function StaticShowcase() {
   };
 
   const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
     const video = videoRefs.current[index];
     if (video) {
       video.play().catch(() => {});
@@ -29,6 +31,7 @@ function StaticShowcase() {
   };
 
   const handleMouseLeave = (index) => {
+    setHoveredIndex(null);
     const video = videoRefs.current[index];
     if (video) {
       video.pause();
@@ -62,16 +65,22 @@ function StaticShowcase() {
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
             >
-              {/* Video Preview with Custom Poster */}
+              {/* Video Preview */}
               <video
                 ref={(el) => (videoRefs.current[index] = el)}
                 src={video.url}
-                poster={video.thumbnail || undefined}
                 className="w-full h-full object-cover"
                 muted
                 playsInline
                 loop
               />
+
+              {/* Thumbnail overlay — covers video when not hovered */}
+              {video.thumbnail && hoveredIndex !== index && (
+                <div className="absolute inset-0">
+                  <img src={video.thumbnail} alt="" className="w-full h-full object-cover" />
+                </div>
+              )}
 
               {/* Dark Overlay */}
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/0 transition-all duration-300" />

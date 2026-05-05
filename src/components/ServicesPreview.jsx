@@ -21,7 +21,7 @@ function ServicesPreview() {
         <h2 className="font-display text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold text-near-black leading-[1.25] mb-5">
           Strategic Marketing Support for Growing Brands
         </h2>
-        <p className="text-mid-gray text-[0.95rem] leading-[1.75] max-w-[380px] mb-9 font-light">
+        <p className="text-mid-gray text-[0.95rem] leading-[1.75] max-w-[380px] mb-9 font-light font-subheading">
           Annalise Marketing offers strategic marketing support for brands that want clarity, stronger creative, and measurable growth.
         </p>
         <a
@@ -38,7 +38,7 @@ function ServicesPreview() {
           <div key={service.id} className="border-b border-near-black/15">
             <button
               onClick={() => toggleAccordion(index)}
-              className="w-full flex items-center justify-between py-5 bg-transparent border-none cursor-pointer font-body text-[0.85rem] font-semibold tracking-[0.08em] uppercase text-near-black text-left transition-colors hover:text-accent"
+              className="w-full flex items-center justify-between py-5 bg-transparent border-none cursor-pointer font-display text-[1.1rem] font-bold tracking-[0.05em] uppercase text-near-black text-left transition-colors"
             >
               <span>{service.title}</span>
               <span
@@ -54,12 +54,12 @@ function ServicesPreview() {
                 openIndex === index ? 'max-h-[200px] pb-5' : 'max-h-0'
               }`}
             >
-              <p className="text-[0.9rem] text-mid-gray leading-[1.7] font-light mb-6">
+              <p className="text-[0.9rem] text-mid-gray leading-[1.7] font-light font-subheading mb-6">
                 {service.description}
               </p>
               <a
-                href="/services#contact"
-                className="inline-block px-2r py-[8px] bg-cream text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-mid-gray hover:-translate-y-[1px]"
+                href="/services"
+                className="inline-block px-6 py-2 border-2 border-near-black bg-transparent text-near-black font-display font-bold text-[16px] tracking-[0.05em] uppercase transition-colors hover:bg-near-black hover:text-white"
               >
                 Learn More
               </a>

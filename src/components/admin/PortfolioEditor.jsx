@@ -135,23 +135,39 @@ function PortfolioEditor({ formData, setFormData }) {
             <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">Slug <span className="text-near-black/30">(auto-generated)</span></label>
             <input type="text" value={editingBrand.slug} onChange={(e) => updateBrand(editingBrand.id, 'slug', e.target.value)} className={`${inputClass} bg-[#FAFAFA] text-near-black/60`} />
           </div>
-          <div className="grid grid-cols-2 gap-4 mb-5">
-            <div>
-              <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">Background Color</label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="color"
-                  value={editingBrand.bgColor}
-                  onChange={(e) => updateBrand(editingBrand.id, 'bgColor', e.target.value)}
-                  className="w-10 h-10 rounded border border-near-black/10 cursor-pointer"
-                />
-                <input type="text" value={editingBrand.bgColor} onChange={(e) => updateBrand(editingBrand.id, 'bgColor', e.target.value)} placeholder="#f4efe4" className={inputClass} />
+          <div className="mb-5">
+            <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">Background Color</label>
+            <div className="flex items-center gap-3">
+              <input
+                type="color"
+                value={editingBrand.bgColor}
+                onChange={(e) => updateBrand(editingBrand.id, 'bgColor', e.target.value)}
+                className="w-10 h-10 rounded border border-near-black/10 cursor-pointer"
+              />
+              <input type="text" value={editingBrand.bgColor} onChange={(e) => updateBrand(editingBrand.id, 'bgColor', e.target.value)} placeholder="#f4efe4" className={inputClass} />
+            </div>
+          </div>
+          <div className="mb-5">
+            <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
+              Logo Size — {editingBrand.logoScale || 50}%
+            </label>
+            <input
+              type="range"
+              min="10"
+              max="100"
+              value={editingBrand.logoScale || 50}
+              onChange={(e) => updateBrand(editingBrand.id, 'logoScale', Number(e.target.value))}
+              className="w-full accent-near-black cursor-pointer"
+            />
+            <div className="flex justify-between text-[0.75rem] text-near-black/30 mt-1">
+              <span>Small</span>
+              <span>Large</span>
+            </div>
+            {editingBrand.logo && (
+              <div className="mt-3 rounded-lg flex items-center justify-center h-[100px]" style={{ backgroundColor: editingBrand.bgColor }}>
+                <img src={editingBrand.logo} alt="Preview" className="object-contain" style={{ height: `${editingBrand.logoScale || 50}%` }} />
               </div>
-            </div>
-            <div>
-              <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">Logo Height (px)</label>
-              <input type="number" value={editingBrand.logoHeight} onChange={(e) => updateBrand(editingBrand.id, 'logoHeight', e.target.value)} placeholder="80" className={inputClass} />
-            </div>
+            )}
           </div>
           <div>
             <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">Logo</label>

@@ -63,16 +63,16 @@ const defaultData = {
       name: "BoostedSafe",
       logo: "/assets/Porfolio/brand-logos/boostedsafe.png",
       bgColor: "#ffd608",
-      logoHeight: "116",
+      logoScale: 70,
       ads: []
     },
     {
       id: "2",
       slug: "kaxi",
       name: "Kaxi",
-      logo: "/assets/Porfolio/brand-logos/kaxi.png",
+      logo: "/assets/Porfolio/brand-logos/kaxi.svg",
       bgColor: "#f4efe4",
-      logoHeight: "70",
+      logoScale: 50,
       ads: []
     },
     {
@@ -81,7 +81,7 @@ const defaultData = {
       name: "SALT",
       logo: "/assets/Porfolio/brand-logos/salt.png",
       bgColor: "#463d3a",
-      logoHeight: "84",
+      logoScale: 55,
       ads: [
         "/assets/Porfolio/Statics/Salt.jpeg",
         "/assets/Porfolio/Statics/Ziplock-Organizer.jpg"
@@ -93,7 +93,7 @@ const defaultData = {
       name: "SoloPro Tax",
       logo: "/assets/Porfolio/brand-logos/solopro-tax.png",
       bgColor: "#1999a1",
-      logoHeight: "58",
+      logoScale: 45,
       ads: [
         "/assets/Porfolio/Statics/SoloPro-Tax.jpg",
         "/assets/Porfolio/Statics/solopro-tax-second.jpg"
@@ -103,9 +103,9 @@ const defaultData = {
       id: "5",
       slug: "sunshine-buns",
       name: "Sunshine Buns",
-      logo: "/assets/Porfolio/brand-logos/sunshine-buns.png",
+      logo: "/assets/Porfolio/brand-logos/sunshine-buns.svg",
       bgColor: "#ffde8d",
-      logoHeight: "47",
+      logoScale: 40,
       ads: []
     }
   ],
@@ -158,21 +158,21 @@ const defaultData = {
   videos: [
     {
       id: "1",
-      url: "/assets/Porfolio/Videos/SBS_WithAndWithout_Video_Feed_V2.mp4",
-      title: "SBS With & Without Video Feed",
-      thumbnail: ""
+      url: "public/assets/Porfolio/Portfolio Section for Web/Salt by Sabrina/SilverwareDrawer_9x16 copy.mp4",
+      title: "SBS",
+      thumbnail: "public/assets/Porfolio/Portfolio Section for Web/Salt by Sabrina/thumbnail-sbs.png"
     },
     {
       id: "2",
-      url: "/assets/Porfolio/Videos/YouArentAnAccountant_4x5.mp4",
+      url: "public/assets/Porfolio/Videos/YouArentAnAccountant_4x5.mp4",
       title: "You Aren't An Accountant",
       thumbnail: ""
     },
     {
       id: "3",
-      url: "/assets/Porfolio/Videos/Ekko_CinematicStorytelling_V1A_TG%20-%20Feed.mp4",
-      title: "Ekko Cinematic Storytelling",
-      thumbnail: ""
+      url: "public/assets/Porfolio/Portfolio Section for Web/BoostedSafe/IsoFix_Callout_v3_9x16 (1).mp4",
+      title: "Boosted Safe",
+      thumbnail: "public/assets/Porfolio/Portfolio Section for Web/BoostedSafe/thumbnail-boosted-safe.png"
     }
   ]
 };
