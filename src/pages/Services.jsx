@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { getData } from '../utils/storage';
 
 function Services() {
+  const location = useLocation();
   const data = getData();
   const services = data.services || [];
   const [formData, setFormData] = useState({
@@ -34,6 +36,15 @@ function Services() {
     revealRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  // Scroll to #contact if hash is present
+  useEffect(() => {
+    if (location.hash === '#contact') {
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location.hash]);
 
   const addRevealRef = (el) => {
     if (el && !revealRefs.current.includes(el)) {
@@ -119,7 +130,7 @@ function Services() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="bg-portfolio-cream py-24 px-6">
+      <section id="contact" className="bg-portfolio-cream py-24 px-6">
         <div className="max-w-[1300px] mx-auto flex flex-col lg:flex-row gap-16">
           {/* Left — heading */}
           <div className="lg:w-[380px] shrink-0" ref={addRevealRef}>

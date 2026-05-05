@@ -64,7 +64,7 @@ function Hero() {
           {data.heroSubheadline}
         </p>
         <a
-          href="#contact"
+          href="/services#contact"
           className="self-start px-6 py-3 bg-[#272828] text-white font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-[#3a3a3a] hover:-translate-y-[1px]"
         >
           {data.heroCTAText}

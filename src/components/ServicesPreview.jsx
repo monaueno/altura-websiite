@@ -25,7 +25,7 @@ function ServicesPreview() {
           Annalise Marketing offers strategic marketing support for brands that want clarity, stronger creative, and measurable growth.
         </p>
         <a
-          href="#contact"
+          href="/services#contact"
           className="inline-block px-8 py-[14px] bg-black text-white font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-mid-gray hover:-translate-y-[1px]"
         >
           Hire Us
@@ -58,7 +58,7 @@ function ServicesPreview() {
                 {service.description}
               </p>
               <a
-                href="#contact"
+                href="/services#contact"
                 className="inline-block px-2r py-[8px] bg-cream text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-mid-gray hover:-translate-y-[1px]"
               >
                 Learn More

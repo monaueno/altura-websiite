@@ -68,7 +68,7 @@ function Footer() {
 
         {/* Hire Us CTA */}
         <a
-          href="#contact"
+          href="/services#contact"
           className="inline-block px-8 py-[14px] bg-white text-near-black font-body font-display text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-accent-light hover:-translate-y-[1px]"
         >
           Hire Us!

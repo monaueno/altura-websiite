@@ -66,7 +66,10 @@ function Navbar() {
       {/* Logo */}
       <Link to="/" className="relative z-10 flex items-center">
         <img
-          src={logoImage || '/assets/Images/altura-logo.png'}
+          src={isDarkText
+            ? '/assets/Altura - Logo Suite/02 Secondary Logo/PNG/SecondaryLogo-FullColor.png'
+            : (logoImage || '/assets/Images/altura-logo.png')
+          }
           alt="Altura"
           className="w-[108px] h-[108px]"
           style={isDarkText ? {} : { filter: 'brightness(0) invert(1)' }}
@@ -102,7 +105,7 @@ function Navbar() {
         </li>
         <li>
           <a
-            href="#contact"
+            href="/services#contact"
             className={`font-display ${isDarkText ? 'bg-blue-dark' : 'bg-[#A4BDE0]'} text-white px-[22px] py-[10px] rounded-[2px] font-normal text-[20px] leading-[150%] tracking-[0%] uppercase transition-all hover:bg-[#8DADD0]`}
           >
             Let's Chat
