@@ -72,10 +72,7 @@ function Services() {
     setSubmitting(false);
   };
 
-  // Only show 4 services on the cards (exclude Organic Social per Figma design)
-  const displayServices = services.filter(
-    (s) => s.title !== 'Organic Social Consultant'
-  );
+  const displayServices = services;
 
   return (
     <div className="min-h-screen">
@@ -121,9 +118,11 @@ function Services() {
               <p className="font-subheading font-light text-[18px] leading-[1.25] text-near-black max-w-[466px] mb-8">
                 {service.description}
               </p>
-              <button className="border-2 border-near-black px-6 py-2 font-display font-bold text-[16px] tracking-[0.05em] uppercase hover:bg-near-black hover:text-white transition-colors">
-                Learn More
-              </button>
+              {service.link && (
+                <a href={service.link} className="inline-block border-2 border-near-black px-6 py-2 font-display font-bold text-[16px] tracking-[0.05em] uppercase hover:bg-near-black hover:text-white transition-colors">
+                  Learn More
+                </a>
+              )}
             </div>
           ))}
         </div>

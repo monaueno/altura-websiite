@@ -17,8 +17,8 @@ const defaultData = {
     videoShowcaseSubheading: "Sometimes the UGC comes back less than ideal. Sometimes all you have are still images from a recent shoot. This portfolio highlights how creative strategy and thoughtful editing can transform what you have into video ads that actually work."
   },
   about: {
-    photo: "/assets/images/about-photo.jpg",
-    bio: "Marketing strategist passionate about helping brands connect with their audiences through authentic storytelling and data-driven creative."
+    photo: "/assets/Images/Grandpa Max/Annalise-and-Grandpa.jpg",
+    bio: "The name Altura was inspired by an experience I had with my grandpa.\n\nAs a family, we hiked Handies Peak. At 73, my grandpa set a goal to reach the highest altitude he had ever hiked: 13,000 feet. As we got close to the top, we climbed straight up the mountain. I watched as he felt joy, excitement, and a deep sense of accomplishment.\n\nIn that moment, I was reminded that progress is personal and intentional.\n\nIt\u2019s a moment I never want to forget. A moment I want my business to stand for. And a moment I hope to relive again and again with the clients whose businesses I help take to new heights.\n\nThe word Altura is derived from the Latin alt\u016Bra, meaning \u201Cheight\u201D or \u201Cloftiness,\u201D often used to describe physical or metaphorical elevation.\n\nTo me, Altura stands for intentional progress\u2014for setting meaningful goals and doing the work required to reach them.\n\nThat\u2019s what I aim to help my clients do every day."
   },
   portfolioHero: {
     title: "AD GALLERY",
@@ -29,31 +29,43 @@ const defaultData = {
       id: "1",
       number: "01",
       title: "Creative Strategist Consultant",
-      description: "For teams that already have execution covered but need sharper thinking behind the creative. I partner with in-house designers and media buyers to uncover insights, refine messaging, and generate ideas that actually resonate and perform."
+      description: "For teams that already have execution covered but need sharper thinking behind the creative. I partner with in-house designers and media buyers to uncover insights, refine messaging, and generate ideas that actually resonate and perform.",
+      link: ""
     },
     {
       id: "2",
       number: "02",
       title: "Paid Media Consultant",
-      description: "Campaign strategy and management across Meta, Pinterest, and TikTok. I approach paid media through a creative-first lens, helping brands make smarter decisions, improve performance, and scale with intention."
+      description: "Campaign strategy and management across Meta, Pinterest, and TikTok. I approach paid media through a creative-first lens, helping brands make smarter decisions, improve performance, and scale with intention.",
+      link: ""
     },
     {
       id: "3",
       number: "03",
-      title: "Organic Social Consultant",
-      description: "Organic social strategy focused on clarity, consistency, and connection. From content direction to messaging frameworks, I help brands show up in a way that feels natural, aligned, and worth engaging with."
+      title: "Organic Social Management",
+      description: "Organic social strategy focused on clarity, consistency, and connection. From content direction to messaging frameworks, I help brands show up in a way that feels natural, aligned, and worth engaging with.",
+      link: ""
     },
     {
       id: "4",
       number: "04",
-      title: "Graphic Design",
-      description: "Strategic, conversion-focused design that supports your marketing goals. Every deliverable is created with clarity, consistency, and performance in mind. Design isn't just about looking good, it's about communicating quickly and effectively."
+      title: "Email Marketing",
+      description: "Strategic email campaigns designed to nurture leads, drive conversions, and build lasting customer relationships. From welcome sequences to promotional flows, every email is crafted with intentional messaging and clear calls to action.",
+      link: ""
     },
     {
       id: "5",
       number: "05",
+      title: "Package Design",
+      description: "Thoughtful, on-brand packaging that communicates quality and catches attention on the shelf and in the feed. Every design decision is made with your target customer and brand positioning in mind.",
+      link: ""
+    },
+    {
+      id: "6",
+      number: "06",
       title: "Brand Design",
-      description: "Intentional brand identities built to position you clearly and confidently in your market. From visual identity systems and typography to color palettes and foundational brand elements, we create brands that feel cohesive, elevated, and built for long-term growth. This is more than a logo, it's a strategic foundation for everything that follows."
+      description: "Intentional brand identities built to position you clearly and confidently in your market. From visual identity systems and typography to color palettes and foundational brand elements, we create brands that feel cohesive, elevated, and built for long-term growth. This is more than a logo, it's a strategic foundation for everything that follows.",
+      link: ""
     }
   ],
   brands: [

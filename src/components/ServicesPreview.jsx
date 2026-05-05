@@ -7,7 +7,7 @@ function ServicesPreview() {
 
   useEffect(() => {
     const siteData = getData();
-    setServices(siteData.services.slice(0, 4)); // Only show first 4 services
+    setServices(siteData.services);
   }, []);
 
   const toggleAccordion = (index) => {
@@ -57,12 +57,14 @@ function ServicesPreview() {
               <p className="text-[0.9rem] text-mid-gray leading-[1.7] font-light font-subheading mb-6">
                 {service.description}
               </p>
-              <a
-                href="/services"
-                className="inline-block px-6 py-2 border-2 border-near-black bg-transparent text-near-black font-display font-bold text-[16px] tracking-[0.05em] uppercase transition-colors hover:bg-near-black hover:text-white"
-              >
-                Learn More
-              </a>
+              {service.link && (
+                <a
+                  href={service.link}
+                  className="inline-block px-6 py-2 border-2 border-near-black bg-transparent text-near-black font-display font-bold text-[16px] tracking-[0.05em] uppercase transition-colors hover:bg-near-black hover:text-white"
+                >
+                  Learn More
+                </a>
+              )}
             </div>
           </div>
         ))}

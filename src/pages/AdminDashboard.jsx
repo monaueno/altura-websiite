@@ -4,6 +4,8 @@ import { getData, setData } from '../utils/storage';
 import AboutEditor from '../components/admin/AboutEditor';
 import BlogEditor from '../components/admin/BlogEditor';
 import PortfolioEditor from '../components/admin/PortfolioEditor';
+import TestimonialsEditor from '../components/admin/TestimonialsEditor';
+import ServicesEditor from '../components/admin/ServicesEditor';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -80,21 +82,9 @@ function AdminDashboard() {
       flatData.heroVideoUrl = '';
     }
 
-    // Flatten testimonials
-    siteData.testimonials?.forEach((t, i) => {
-      const num = i + 1;
-      flatData[`t${num}-quote`] = t.quote || '';
-      flatData[`t${num}-avatar`] = t.avatar || '';
-      flatData[`t${num}-logo`] = t.logo || '';
-      flatData[`t${num}-logoScale`] = t.logoScale || 50;
-    });
-
-    // Flatten services
-    siteData.services?.slice(0, 4).forEach((s, i) => {
-      const num = i + 1;
-      flatData[`s${num}-title`] = s.title || '';
-      flatData[`s${num}-body`] = s.description || '';
-    });
+    // Nested CRUD data for testimonials and services
+    flatData._testimonials = (siteData.testimonials || []).map(t => ({ ...t }));
+    flatData._services = (siteData.services || []).map(s => ({ ...s }));
 
     // Flatten videos
     siteData.videos?.forEach((v, i) => {
@@ -145,28 +135,9 @@ function AdminDashboard() {
       staticShowcaseSubheading: formData['staticShowcaseSubheading'] || siteData.home.staticShowcaseSubheading,
     };
 
-    // Update testimonials
-    siteData.testimonials = siteData.testimonials.map((t, i) => {
-      const num = i + 1;
-      return {
-        ...t,
-        quote: formData[`t${num}-quote`] || t.quote,
-        avatar: formData[`t${num}-avatar`] || t.avatar,
-        logo: formData[`t${num}-logo`] || t.logo,
-        logoScale: formData[`t${num}-logoScale`] ?? t.logoScale ?? 50,
-      };
-    });
-
-    // Update services
-    siteData.services = siteData.services.map((s, i) => {
-      if (i >= 4) return s;
-      const num = i + 1;
-      return {
-        ...s,
-        title: formData[`s${num}-title`] || s.title,
-        description: formData[`s${num}-body`] || s.description,
-      };
-    });
+    // Save nested CRUD data for testimonials and services
+    if (formData._testimonials) siteData.testimonials = formData._testimonials;
+    if (formData._services) siteData.services = formData._services;
 
     // Update videos
     siteData.videos = siteData.videos.map((v, i) => {
@@ -477,128 +448,7 @@ function AdminDashboard() {
 
           {/* Testimonials Section */}
           {activeSection === 'testimonials' && (
-            <div className="animate-[fadeIn_0.3s_ease-out]">
-              <div className="flex items-start justify-between mb-10">
-                <div>
-                  <h2 className="font-display text-[1.75rem] font-semibold text-near-black mb-3 tracking-tight">
-                    Testimonials
-                  </h2>
-                  <p className="text-[0.95rem] text-near-black/50 leading-relaxed">
-                    Client testimonials displayed on your homepage.
-                  </p>
-                </div>
-                <button
-                  onClick={() => {
-                    if (confirm('This will clear your current testimonials and reload defaults. Continue?')) {
-                      localStorage.removeItem('annalise_site_data');
-                      window.location.reload();
-                    }
-                  }}
-                  className="flex items-center gap-2 px-4 py-2 text-[0.8rem] font-body font-medium rounded-lg cursor-pointer border border-near-black/[0.08] transition-all duration-150 bg-transparent text-near-black/50 hover:border-near-black/20 hover:text-near-black/70 hover:bg-[#FAFAFA]"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  Reset
-                </button>
-              </div>
-
-              <div className="bg-white border border-near-black/[0.04] rounded-lg p-7 mb-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
-                <div className="flex items-center gap-2.5 mb-6">
-                  <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  <h3 className="text-[0.9rem] font-semibold text-near-black">
-                    Client Testimonials
-                  </h3>
-                </div>
-                <div className="flex gap-2 mb-6 flex-wrap">
-                  {[1, 2, 3].map(num => (
-                    <button
-                      key={num}
-                      onClick={() => switchTab('testimonials', num)}
-                      className={`px-4 py-2 border rounded-lg bg-transparent font-body text-[0.85rem] font-medium cursor-pointer transition-all duration-150 ${
-                        (activeTab.testimonials || 1) === num
-                          ? 'bg-accent/[0.08] text-accent border-accent/20'
-                          : 'border-near-black/[0.06] text-near-black/50 hover:border-near-black/[0.12] hover:text-near-black/80 hover:bg-white'
-                      }`}
-                    >
-                      {num}
-                    </button>
-                  ))}
-                </div>
-
-                {[1, 2, 3].map(num => (
-                  <div key={num} className={(activeTab.testimonials || 1) === num ? 'block' : 'hidden'}>
-                    <div className="mb-5">
-                      <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
-                        Quote
-                      </label>
-                      <textarea
-                        value={formData[`t${num}-quote`] || ''}
-                        onChange={(e) => handleInputChange(`t${num}-quote`, e.target.value)}
-                        placeholder="What they said..."
-                        className="w-full px-3.5 py-2.5 border border-near-black/[0.06] rounded-lg font-body text-[0.95rem] text-near-black bg-white outline-none resize-y min-h-[100px] leading-relaxed transition-all duration-150 focus:border-accent focus:ring-1 focus:ring-accent/15 placeholder:text-near-black/30 hover:border-near-black/[0.12]"
-                      />
-                    </div>
-                    <div className="mb-5">
-                      <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
-                        Logo / Signature
-                      </label>
-                      <div className="relative border border-dashed border-near-black/[0.1] rounded-lg p-6 text-center cursor-pointer transition-all duration-150 hover:border-accent/60 hover:bg-accent/[0.03] bg-white group">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleImageUpload(e, `t${num}-logo`)}
-                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                        />
-                        <svg className="w-8 h-8 mx-auto mb-2 text-near-black/25 transition-transform duration-150 group-hover:scale-105" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                        <div className="text-[0.85rem] text-near-black/60 font-medium mb-1">Upload logo</div>
-                        <div className="text-[0.75rem] text-near-black/35">PNG recommended</div>
-                      </div>
-                      {formData[`t${num}-logo`] && (
-                        <div className="mt-3 p-3 bg-[#F8F8F8] border border-near-black/[0.04] rounded-lg">
-                          <img src={formData[`t${num}-logo`]} alt="Logo preview" className="object-contain" style={{ height: `${formData[`t${num}-logoScale`] || 50}px` }} />
-                        </div>
-                      )}
-                      {formData[`t${num}-logo`] && (
-                        <div className="mt-3">
-                          <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2">
-                            Logo Size — {formData[`t${num}-logoScale`] || 50}px
-                          </label>
-                          <input
-                            type="range"
-                            min="20"
-                            max="150"
-                            value={formData[`t${num}-logoScale`] || 50}
-                            onChange={(e) => handleInputChange(`t${num}-logoScale`, Number(e.target.value))}
-                            className="w-full accent-near-black cursor-pointer"
-                          />
-                          <div className="flex justify-between text-[0.75rem] text-near-black/30 mt-1">
-                            <span>Small</span>
-                            <span>Large</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
-                        Name & Title
-                      </label>
-                      <input
-                        type="text"
-                        value={formData[`t${num}-avatar`] || ''}
-                        onChange={(e) => handleInputChange(`t${num}-avatar`, e.target.value)}
-                        placeholder="Alacia Maloy, Dir. of Comms & Ops"
-                        className="w-full px-3.5 py-2.5 border border-near-black/[0.06] rounded-lg font-body text-[0.95rem] text-near-black bg-white outline-none transition-all duration-150 focus:border-accent focus:ring-1 focus:ring-accent/15 placeholder:text-near-black/30 hover:border-near-black/[0.12]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <TestimonialsEditor formData={formData} setFormData={setFormData} />
           )}
 
           {/* Portfolio Section */}
@@ -639,70 +489,7 @@ function AdminDashboard() {
 
           {/* Services Section */}
           {activeSection === 'services' && (
-            <div className="animate-[fadeIn_0.3s_ease-out]">
-              <div className="mb-10">
-                <h2 className="font-display text-[1.75rem] font-semibold text-near-black mb-3 tracking-tight">
-                  Services
-                </h2>
-                <p className="text-[0.95rem] text-near-black/50 leading-relaxed">
-                  Edit each service name and description that appears in the accordion.
-                </p>
-              </div>
-
-              <div className="bg-white border border-near-black/[0.04] rounded-lg p-7 mb-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
-                <div className="flex items-center gap-2.5 mb-6">
-                  <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-                  <h3 className="text-[0.9rem] font-semibold text-near-black">
-                    Service Items
-                  </h3>
-                </div>
-                <div className="flex gap-2 mb-6 flex-wrap">
-                  {[1, 2, 3, 4].map(num => (
-                    <button
-                      key={num}
-                      onClick={() => switchTab('services', num)}
-                      className={`px-4 py-2 border rounded-lg bg-transparent font-body text-[0.85rem] font-medium cursor-pointer transition-all duration-150 ${
-                        (activeTab.services || 1) === num
-                          ? 'bg-accent/[0.08] text-accent border-accent/20'
-                          : 'border-near-black/[0.06] text-near-black/50 hover:border-near-black/[0.12] hover:text-near-black/80 hover:bg-white'
-                      }`}
-                    >
-                      {num}
-                    </button>
-                  ))}
-                </div>
-
-                {[1, 2, 3, 4].map(num => (
-                  <div key={num} className={(activeTab.services || 1) === num ? 'block' : 'hidden'}>
-                    <div className="mb-5">
-                      <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
-                        Service Name
-                      </label>
-                      <input
-                        type="text"
-                        value={formData[`s${num}-title`] || ''}
-                        onChange={(e) => handleInputChange(`s${num}-title`, e.target.value)}
-                        placeholder="Creative Strategist Consultant"
-                        className="w-full px-3.5 py-2.5 border border-near-black/[0.06] rounded-lg font-body text-[0.95rem] text-near-black bg-white outline-none transition-all duration-150 focus:border-accent focus:ring-1 focus:ring-accent/15 placeholder:text-near-black/30 hover:border-near-black/[0.12]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[0.85rem] font-medium text-near-black/70 mb-2.5">
-                        Description
-                      </label>
-                      <textarea
-                        value={formData[`s${num}-body`] || ''}
-                        onChange={(e) => handleInputChange(`s${num}-body`, e.target.value)}
-                        placeholder="For teams that already have execution..."
-                        className="w-full px-3.5 py-2.5 border border-near-black/[0.06] rounded-lg font-body text-[0.95rem] text-near-black bg-white outline-none resize-y min-h-[100px] leading-relaxed transition-all duration-150 focus:border-accent focus:ring-1 focus:ring-accent/15 placeholder:text-near-black/30 hover:border-near-black/[0.12]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ServicesEditor formData={formData} setFormData={setFormData} />
           )}
 
           {/* Videos Section */}

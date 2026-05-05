@@ -39,7 +39,7 @@ function Navbar() {
 
   // Pages with light/cream backgrounds need dark navbar text
   const darkTextPages = ['/portfolio', '/services', '/blog'];
-  const isDarkText = darkTextPages.includes(location.pathname);
+  const isDarkText = darkTextPages.some(p => location.pathname === p || location.pathname.startsWith(p + '/'));
 
   const getLinkClass = (path) => {
     const isActive = location.pathname === path;
