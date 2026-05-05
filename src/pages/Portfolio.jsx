@@ -1,70 +1,52 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getData } from '../utils/storage';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const brandStrips = [
-  {
-    name: 'BoostedSafe',
-    logo: '/assets/Porfolio/brand-logos/boostedsafe.png',
-    bgColor: '#ffd608',
-    logoHeight: 'h-[116px]',
-  },
-  {
-    name: 'Kaxi',
-    logo: '/assets/Porfolio/brand-logos/kaxi.png',
-    bgColor: '#f4efe4',
-    logoHeight: 'h-[70px]',
-  },
-  {
-    name: 'SALT',
-    logo: '/assets/Porfolio/brand-logos/salt.png',
-    bgColor: '#463d3a',
-    logoHeight: 'h-[84px]',
-  },
-  {
-    name: 'SoloPro Tax',
-    logo: '/assets/Porfolio/brand-logos/solopro-tax.png',
-    bgColor: '#1999a1',
-    logoHeight: 'h-[58px]',
-  },
-  {
-    name: 'Sunshine Buns',
-    logo: '/assets/Porfolio/brand-logos/sunshine-buns.png',
-    bgColor: '#ffde8d',
-    logoHeight: 'h-[47px]',
-  },
-];
-
 function Portfolio() {
+  const [brands, setBrands] = useState([]);
+  const [heroData, setHeroData] = useState({});
+
+  useEffect(() => {
+    const siteData = getData();
+    setBrands(siteData.brands || []);
+    setHeroData(siteData.portfolioHero || {
+      title: 'AD GALLERY',
+      subtitle: "Explore the ads we've created for brands we've partnered with.",
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-portfolio-cream">
       <Navbar />
 
       {/* Hero / Header */}
-      <section
-        className="bg-portfolio-cream pt-48 pb-16 text-center"
-      >
+      <section className="bg-portfolio-cream pt-48 pb-16 text-center">
         <h1 className="font-display text-[50px] font-bold text-near-black leading-[1.05] uppercase">
-          AD GALLERY
+          {heroData.title || 'AD GALLERY'}
         </h1>
         <p className="font-subheading font-light text-[18px] text-near-black mt-4 max-w-[570px] mx-auto leading-[1.25]">
-          Explore the ads we've created for brands we've partnered with.
+          {heroData.subtitle || "Explore the ads we've created for brands we've partnered with."}
         </p>
       </section>
 
       {/* Brand Logo Strips */}
       <section className="flex flex-col">
-        {brandStrips.map((brand) => (
-          <div
-            key={brand.name}
-            className="w-full h-[140px] flex items-center justify-center"
+        {brands.map((brand) => (
+          <Link
+            key={brand.id}
+            to={`/portfolio/${brand.slug}`}
+            className="w-full h-[140px] flex items-center justify-center transition-opacity hover:opacity-80 cursor-pointer"
             style={{ backgroundColor: brand.bgColor }}
           >
             <img
               src={brand.logo}
               alt={brand.name}
-              className={`${brand.logoHeight} w-auto object-contain`}
+              className="w-auto object-contain"
+              style={{ height: `${brand.logoHeight}px` }}
             />
-          </div>
+          </Link>
         ))}
       </section>
 

@@ -6,111 +6,103 @@ import Footer from '../components/Footer';
 
 function PortfolioDetail() {
   const { slug } = useParams();
-  const [project, setProject] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [currentAd, setCurrentAd] = useState(0);
 
   useEffect(() => {
     const siteData = getData();
-    const foundProject = siteData.portfolio?.find(p => p.slug === slug);
-    setProject(foundProject);
+    const found = siteData.brands?.find(b => b.slug === slug);
+    setBrand(found);
+    setCurrentAd(0);
   }, [slug]);
 
-  if (!project) {
+  if (!brand) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center">
+      <div className="min-h-screen bg-portfolio-cream flex items-center justify-center">
         <div className="text-center">
           <h1 className="font-display text-[2rem] font-bold text-near-black mb-4">
-            Project Not Found
+            Brand Not Found
           </h1>
           <Link
             to="/portfolio"
-            className="inline-block px-6 py-3 bg-near-black text-cream font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] transition-all hover:bg-mid-gray"
+            className="inline-block px-6 py-3 bg-near-black text-white font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase transition-all hover:bg-near-black/80"
           >
-            Back to Portfolio
+            Back to Ad Gallery
           </Link>
         </div>
       </div>
     );
   }
 
+  const ads = brand.ads || [];
+
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-portfolio-cream">
       <Navbar />
 
-      {/* Hero Image */}
-      <section className="px-12 py-16 bg-near-black">
-        <div className="max-w-6xl mx-auto">
-          <div className="aspect-[16/9] bg-dark-gray rounded-lg overflow-hidden">
-            {project.image ? (
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#2a2a2a] to-[#3d3d3d] flex items-center justify-center">
-                <span className="text-white/20 text-[1rem] tracking-[0.2em] uppercase">
-                  {project.title}
-                </span>
+      {/* Brand Header */}
+      <section
+        className="w-full h-[200px] flex items-center justify-center mt-0"
+        style={{ backgroundColor: brand.bgColor }}
+      >
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          className="w-auto object-contain"
+          style={{ height: `${brand.logoHeight}px` }}
+        />
+      </section>
+
+      {/* Ads Viewer */}
+      <section className="py-16 px-8">
+        <div className="max-w-[900px] mx-auto">
+          {ads.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-near-black/50 font-subheading text-[1.1rem]">
+                Ads coming soon for {brand.name}.
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Current Ad Image */}
+              <div className="flex items-center justify-center mb-8">
+                <img
+                  src={ads[currentAd]}
+                  alt={`${brand.name} ad ${currentAd + 1}`}
+                  className="max-w-full max-h-[600px] object-contain rounded-lg"
+                />
               </div>
-            )}
-          </div>
+
+              {/* Dot Navigation */}
+              {ads.length > 1 && (
+                <div className="flex items-center justify-center gap-3">
+                  {ads.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentAd(idx)}
+                      aria-label={`View ad ${idx + 1}`}
+                      className={`rounded-full transition-all cursor-pointer border-none ${
+                        idx === currentAd
+                          ? 'w-3 h-3 bg-near-black'
+                          : 'w-2.5 h-2.5 bg-near-black/25 hover:bg-near-black/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
-      {/* Project Details */}
-      <section className="px-12 py-24">
-        <div className="max-w-4xl mx-auto">
-          {/* Title */}
-          <h1 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-bold text-near-black mb-6 leading-[1.1]">
-            {project.title}
-          </h1>
-
-          {/* Tagline */}
-          {project.tagline && (
-            <p className="text-[1.4rem] text-accent font-display italic mb-12 leading-[1.4]">
-              "{project.tagline}"
-            </p>
-          )}
-
-          {/* Description */}
-          <p className="text-[1.1rem] text-mid-gray font-subheading leading-[1.8] mb-16">
-            {project.shortDescription}
-          </p>
-
-          {/* Strategy Section */}
-          {project.strategyBullets && project.strategyBullets.length > 0 && (
-            <div className="bg-cream-dark rounded-lg p-10 mb-16">
-              <h2 className="font-display text-[1.8rem] font-bold text-near-black mb-6">
-                The WHY Behind the Strategy
-              </h2>
-              <ul className="space-y-4">
-                {project.strategyBullets.map((bullet, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-4"
-                  >
-                    <span className="text-accent font-display text-[1.2rem] font-bold mt-1">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[1rem] text-near-black font-subheading leading-[1.7]">
-                      {bullet}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Back Button */}
-          <div className="text-center">
-            <Link
-              to="/portfolio"
-              className="inline-block px-8 py-4 bg-transparent text-near-black font-body font-semibold text-[0.82rem] tracking-[0.1em] uppercase rounded-[2px] border-[1.5px] border-near-black transition-all hover:bg-near-black hover:text-white"
-            >
-              ← Back to Portfolio
-            </Link>
-          </div>
-        </div>
+      {/* Back + CTA */}
+      <section className="pb-20 text-center space-y-4">
+        <Link
+          to="/portfolio"
+          className="inline-block px-8 py-3 bg-transparent text-near-black font-display font-bold text-[16px] tracking-[0.05em] uppercase border-2 border-near-black hover:bg-near-black hover:text-white transition-colors"
+        >
+          Back to Ad Gallery
+        </Link>
       </section>
 
       <Footer />

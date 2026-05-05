@@ -11,6 +11,53 @@ function AdminDashboard() {
   const [activeTab, setActiveTab] = useState({});
   const [formData, setFormData] = useState({});
   const [showToast, setShowToast] = useState(false);
+  const [openPages, setOpenPages] = useState({ home: true });
+
+  const togglePage = (page) => {
+    setOpenPages(prev => ({ ...prev, [page]: !prev[page] }));
+  };
+
+  const sidebarPages = [
+    {
+      id: 'home',
+      label: 'Home',
+      sections: [
+        { id: 'hero', label: 'Hero Section' },
+        { id: 'portfolio', label: 'Showcase Text' },
+        { id: 'videos', label: 'Videos' },
+        { id: 'services', label: 'Services' },
+        { id: 'testimonials', label: 'Testimonials' },
+      ],
+    },
+    {
+      id: 'portfolioPage',
+      label: 'Portfolio',
+      sections: [
+        { id: 'portfolioFull', label: 'Ad Gallery' },
+      ],
+    },
+    {
+      id: 'aboutPage',
+      label: 'About',
+      sections: [
+        { id: 'about', label: 'About Page' },
+      ],
+    },
+    {
+      id: 'blogPage',
+      label: 'Blog',
+      sections: [
+        { id: 'blog', label: 'Blog Posts' },
+      ],
+    },
+    {
+      id: 'sitewide',
+      label: 'Site-wide',
+      sections: [
+        { id: 'footer', label: 'Footer' },
+      ],
+    },
+  ];
 
   useEffect(() => {
     // Check authentication
@@ -54,25 +101,14 @@ function AdminDashboard() {
       flatData[`v${num}-thumbnail`] = v.thumbnail || '';
     });
 
-    // Flatten portfolio hero
-    flatData['portfolioHeroTitle'] = siteData.portfolioHero?.title || '';
-    flatData['portfolioHeroSubtitle'] = siteData.portfolioHero?.subtitle || '';
-    flatData['portfolioHeroImage'] = siteData.portfolioHero?.backgroundImage || '';
-    flatData['portfolioHeroLogo'] = siteData.portfolioHero?.logo || '';
-
     // Nested data for CRUD sections
     flatData._about = { ...(siteData.about || { photo: '', bio: '' }) };
     flatData._blog = (siteData.blog || []).map(p => ({ ...p }));
-    flatData._portfolio = (siteData.portfolio || []).map(p => ({
-      ...p,
-      strategyBullets: (p.strategyBullets || []).map(b => ({ ...b })),
-      metrics: (p.metrics || []).map(m => ({
-        ...m,
-        benchmarks: (m.benchmarks || []).map(b => ({ ...b })),
-      })),
+    flatData._brands = (siteData.brands || []).map(b => ({
+      ...b,
+      ads: [...(b.ads || [])],
     }));
     flatData._portfolioHero = { ...(siteData.portfolioHero || { title: '', subtitle: '' }) };
-    flatData._portfolioMountain = { ...(siteData.portfolioMountain || { title: '', subtitle: '' }) };
 
     setFormData(flatData);
   }, [navigate]);
@@ -139,20 +175,11 @@ function AdminDashboard() {
       };
     });
 
-    // Update portfolio hero (from flat fields)
-    siteData.portfolioHero = {
-      title: formData['portfolioHeroTitle'] || siteData.portfolioHero?.title || 'Our Work',
-      subtitle: formData['portfolioHeroSubtitle'] || siteData.portfolioHero?.subtitle || '',
-      backgroundImage: formData['portfolioHeroImage'] || siteData.portfolioHero?.backgroundImage || '',
-      logo: formData['portfolioHeroLogo'] || siteData.portfolioHero?.logo || '',
-    };
-
     // Save nested CRUD data
     if (formData._about) siteData.about = formData._about;
     if (formData._blog) siteData.blog = formData._blog;
-    if (formData._portfolio) siteData.portfolio = formData._portfolio;
-    if (formData._portfolioHero) siteData.portfolioHero = { ...siteData.portfolioHero, ...formData._portfolioHero };
-    if (formData._portfolioMountain) siteData.portfolioMountain = formData._portfolioMountain;
+    if (formData._brands) siteData.brands = formData._brands;
+    if (formData._portfolioHero) siteData.portfolioHero = formData._portfolioHero;
 
     setData(siteData);
     setShowToast(true);
@@ -227,38 +254,61 @@ function AdminDashboard() {
         <aside className="bg-white border-r border-near-black/[0.06] py-6 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto">
           <div className="px-4 mb-4">
             <p className="text-[0.75rem] font-medium text-near-black/40 px-2">
-              Content
+              Pages
             </p>
           </div>
-          {[
-            { id: 'hero', icon: '🖼', label: 'Hero Section' },
-            { id: 'about', icon: '👤', label: 'About Page' },
-            { id: 'testimonials', icon: '💬', label: 'Testimonials' },
-            { id: 'portfolioFull', icon: '💼', label: 'Portfolio Projects' },
-            { id: 'blog', icon: '📝', label: 'Blog Posts' },
-            { id: 'portfolio', icon: '🎨', label: 'Showcase Text' },
-            { id: 'videos', icon: '🎬', label: 'Videos' },
-            { id: 'services', icon: '📋', label: 'Services' },
-            { id: 'footer', icon: '📌', label: 'Footer' },
-          ].map(section => (
-            <button
-              key={section.id}
-              onClick={() => setActiveSection(section.id)}
-              className={`group w-full px-4 py-2 mb-0.5 text-left bg-transparent border-none font-body cursor-pointer transition-all duration-150 rounded-lg flex items-center gap-3 ${
-                activeSection === section.id
-                  ? 'bg-accent/[0.08] text-near-black'
-                  : 'text-near-black/50 hover:bg-[#FAFAFA] hover:text-near-black/80'
-              }`}
-            >
-              <div className={`transition-colors ${activeSection === section.id ? 'text-accent' : 'text-near-black/40 group-hover:text-near-black/60'}`}>
-                {section.icon}
-              </div>
-              <div className={`text-[0.9rem] font-medium transition-colors ${
-                activeSection === section.id ? 'text-near-black' : 'text-near-black/60 group-hover:text-near-black/80'
-              }`}>
-                {section.label}
-              </div>
-            </button>
+          {sidebarPages.map(page => (
+            <div key={page.id} className="mb-1">
+              {/* Page dropdown toggle */}
+              <button
+                onClick={() => togglePage(page.id)}
+                className="group w-full px-4 py-2 text-left bg-transparent border-none font-body cursor-pointer transition-all duration-150 rounded-lg flex items-center justify-between"
+              >
+                <span className={`text-[0.9rem] font-semibold transition-colors ${
+                  page.sections.some(s => s.id === activeSection)
+                    ? 'text-near-black'
+                    : 'text-near-black/50 group-hover:text-near-black/70'
+                }`}>
+                  {page.label}
+                </span>
+                <svg
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    page.sections.some(s => s.id === activeSection)
+                      ? 'text-near-black/40'
+                      : 'text-near-black/25'
+                  } ${openPages[page.id] ? 'rotate-180' : ''}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Section items */}
+              {openPages[page.id] && (
+                <div className="ml-3 border-l border-near-black/[0.06] pl-1 mb-2">
+                  {page.sections.map(section => (
+                    <button
+                      key={section.id}
+                      onClick={() => {
+                        setActiveSection(section.id);
+                        setOpenPages(prev => ({ ...prev, [page.id]: true }));
+                      }}
+                      className={`group w-full px-3 py-1.5 text-left bg-transparent border-none font-body cursor-pointer transition-all duration-150 rounded-md flex items-center ${
+                        activeSection === section.id
+                          ? 'bg-accent/[0.08] text-near-black'
+                          : 'text-near-black/50 hover:bg-[#FAFAFA] hover:text-near-black/80'
+                      }`}
+                    >
+                      <span className={`text-[0.85rem] font-medium transition-colors ${
+                        activeSection === section.id ? 'text-near-black' : 'text-near-black/55 group-hover:text-near-black/80'
+                      }`}>
+                        {section.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </aside>
 
